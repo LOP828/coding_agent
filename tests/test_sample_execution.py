@@ -3,6 +3,7 @@ import pytest
 
 from coding_agent.m0 import read_json, validate_admission, validate_report
 from support.sample_diagnostics import execute_candidate, write_json
+from support.m1_samples import repository, runner, executor
 
 
 @pytest.mark.parametrize("case,gate,failed", [
@@ -11,20 +12,25 @@ from support.sample_diagnostics import execute_candidate, write_json
     ("03_scope_violation", "HARD_FAIL", 0),
     ("04_wrong_acceptance", "PASS", 0),
 ])
-def test_known_candidate_execution(data_root, evidence_root, case, gate, failed):
+def test_known_candidate_execution(data_root, evidence_root, case, gate, failed, tmp_path):
     task = read_json(data_root / "fixtures" / case / "atomic_task.json")
     source = read_json(data_root / "fixtures/source_requirements.json")
     trusted = read_json(data_root / "fixtures/trusted_review_records.json")
-    report = read_json(data_root / "fixtures" / case / "verification_report_expected.json")
-    validate_admission(task, source, trusted, data_root, fixture_mode=True)
-    computed = validate_report(task, report, expected_revision=f"synthetic-{case[:2]}")
+    repo = repository(tmp_path / "candidate")
+    audit = runner(data_root, evidence_root).run(task, repo, executor(data_root, case))
+    report = audit["report"]
+    assert report is not None, audit
+    computed = validate_report(task, report, expected_revision=report["revision"])
     assert computed == {"status": gate, "route": "NONE" if gate == "PASS" else "EXECUTION_FAIL"}
-    references = [c["reference"] for p in task["properties"] for c in p["checks"]
-                  if c["method"] == "UNIT_TEST"]
-    result = execute_candidate(data_root, case, references, f"{case}_declared_tests", evidence_root)
+    result = {key: sum(check[key] for check in audit["checks"])
+              for key in ("passed", "failed", "errors", "skipped")}
+    result["exit_code"] = max(check["exit_code"] for check in audit["checks"])
+    if case == "03_scope_violation":
+        assert report["changed_paths"] == ["config_loader.py", "project_config.py"]
+        assert "project_config.py" in audit["workspace"]["diff_name_status_z"]
     write_json(evidence_root / f"{case}_summary.json", {
         "case": case, "computed_gate": computed,
-        "gate_evidence": "SYNTHETIC_REPORT_AND_SYNTHETIC_CHANGED_PATHS",
+        "gate_evidence": "RUNNER_GIT_AND_JUNIT", "audit": audit["evidence_directory"],
         "actual_candidate_execution": result,
     })
     assert (result["passed"], result["failed"], result["errors"], result["skipped"]) == (2-failed, failed, 0, 0)

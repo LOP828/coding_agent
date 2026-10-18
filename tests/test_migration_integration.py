@@ -1,6 +1,7 @@
 """Migration boundaries: packaged schemas, independent roots, and admission order."""
 from importlib.resources import files
 from unittest.mock import Mock
+from support.m1_samples import repository, runner
 import shutil
 
 import pytest
@@ -36,7 +37,7 @@ def test_schema_resources_and_test_root_are_independent(data_root, tmp_path, mon
     ("changed", "APPROVAL_CONTENT_MISMATCH"),
     ("unauthorized", "SCOPE_AUTHORIZATION_REQUIRED"),
 ])
-def test_admission_failure_never_calls_executor_or_issues_report(data_root, mutation, code):
+def test_admission_failure_never_calls_executor_or_issues_report(data_root, mutation, code, tmp_path, evidence_root):
     task = read_json(data_root / "fixtures/01_correct/atomic_task.json")
     source = read_json(data_root / "fixtures/source_requirements.json")
     records = read_json(data_root / "fixtures/trusted_review_records.json")
@@ -47,9 +48,11 @@ def test_admission_failure_never_calls_executor_or_issues_report(data_root, muta
     else:
         task["properties"][0]["scope_impact"] = "NEW_MODULE"
     executor = Mock()
-    issue_report = Mock()
-    with pytest.raises(PolicyError, match=code):
-        validate_admission(task, source, records, data_root, fixture_mode=True)
-        issue_report(executor())
+    repo = repository(tmp_path / "candidate")
+    audit = runner(data_root, evidence_root).run(task, repo, executor)
+    assert code in audit["failure"]
     assert executor.call_count == 0
-    assert issue_report.call_count == 0
+    assert audit["executor_calls"] == audit["candidate_process_starts"] == 0
+    assert audit["checks"] == []
+    assert audit["report"] is None
+    assert [event["event"] for event in audit["events"]] == ["blocked"]

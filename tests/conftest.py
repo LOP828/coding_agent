@@ -17,7 +17,7 @@ def data_root():
 
 @pytest.fixture
 def evidence_root():
-    path = Path(__file__).resolve().parents[1] / "audit_evidence" / platform.system().lower()
+    path = Path(__file__).resolve().parents[1] / ".coding-agent-evidence" / platform.system().lower()
     path.mkdir(parents=True, exist_ok=True)
     return path
 
@@ -28,7 +28,7 @@ def pytest_sessionfinish(session, exitstatus):
     counts = {name: len(reporter.stats.get(name, []))
               for name in ("passed", "failed", "error", "skipped")}
     counts["errors"] = counts.pop("error")
-    output = Path(__file__).resolve().parents[1] / "audit_evidence" / platform.system().lower()
+    output = Path(__file__).resolve().parents[1] / ".coding-agent-evidence" / platform.system().lower()
     output.mkdir(parents=True, exist_ok=True)
     summary = {
         "command": "python -m pytest", "exit_code": int(exitstatus),
@@ -38,6 +38,7 @@ def pytest_sessionfinish(session, exitstatus):
         "utf8_mode": sys.flags.utf8_mode, "PYTHONUTF8": os.environ.get("PYTHONUTF8"),
         "pytest": importlib.metadata.version("pytest"),
         "jsonschema": importlib.metadata.version("jsonschema"),
+        "skip_reasons": [str(report.longrepr) for report in reporter.stats.get("skipped", [])],
     }
     (output / "acceptance_summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

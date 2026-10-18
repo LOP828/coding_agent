@@ -1,0 +1,78 @@
+{
+  "baseline_commit": "18349fb",
+  "requirements_commit": "23b3aed",
+  "requirements_file": "docs/M1/Coding_Agent_M1_Codex_Task.md",
+  "requirements_sha256": "c9f77f83811b7c872d4f6da66fe445a3034e97e1f552f3da9cd212511c1ad179",
+  "platforms": {
+    "linux": {
+      "command": "python -m pytest",
+      "exit_code": 0,
+      "collected": 128,
+      "passed": 128,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "system": "Linux",
+      "python": "3.11.15",
+      "executable": "/tmp/coding-agent-m1-validation-venv/bin/python",
+      "locale_encoding": "UTF-8",
+      "utf8_mode": 0,
+      "PYTHONUTF8": null,
+      "pytest": "9.0.2",
+      "jsonschema": "4.26.0",
+      "skip_reasons": []
+    },
+    "windows": {
+      "command": "python -m pytest",
+      "exit_code": 0,
+      "collected": 128,
+      "passed": 128,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "system": "Windows",
+      "python": "3.13.7",
+      "executable": "D:\\project\\coding_agent\\.venv-windows\\Scripts\\python.exe",
+      "locale_encoding": "cp936",
+      "utf8_mode": 0,
+      "PYTHONUTF8": null,
+      "pytest": "9.0.2",
+      "jsonschema": "4.26.0",
+      "skip_reasons": []
+    }
+  },
+  "m0_retained_cases": 76,
+  "m0_replaced_cases": 4,
+  "m0_replaced_function": "test_admission_failure_never_calls_executor_or_issues_report",
+  "m1_additional_cases": 48,
+  "mk_supplement": {
+    "category": 7,
+    "description": ".git/config, .git/hooks/, .git/info/ integrity checks; explicit fsmonitor and hooksPath overrides",
+    "outside_original_requirements": true
+  },
+  "source_sha256": {
+    ".gitignore": "6c129a397e1e11ba8e6a30a5af2f74c1104a1a228a6edf943967876b2ad31871",
+    "docs/M1/Codex_Harness_Write_Restrictions.md": "29ac2f4b4a5f27cb41e4a8686a02ba2003a6287c6587996a6c66cee047d9a7e0",
+    "src/coding_agent/_pytest_bootstrap.py": "27195552bf7250ab3bc44827581c43fbf9fc7900a3b0e66ac3e66706c51487a1",
+    "src/coding_agent/python_environment.py": "30e24d53026247cfe4c6802ee0bca4e4b47da64865e9082a43925e4d858e5cd9",
+    "src/coding_agent/runner.py": "97bcc19b704af14ed58e5965de9a119ec110f2527ffdb2ecad0772ff49233f94",
+    "src/coding_agent/verification.py": "35db323cf3cd5e7d2b0612e98b03b228d7aadf30b476e99b0b22da86f0d81cc8",
+    "src/coding_agent/workspace.py": "aa686fb0bc00c5938e2f2ffb08de1b86deef476cc31c600376480190dfaf24cf",
+    "tests/conftest.py": "30a75b29bfb6f2582090c25615ab04765434273bae6e170f24877387a912175f",
+    "tests/support/m1_samples.py": "e59a67ab55d919e6b9c77db0aa27a603e59b1b8662e91c5ee939f6aca6403e3f",
+    "tests/test_m1_anti_cheating.py": "13c6b86ef9aa09d319ea3de3d5bc919b0ee98c44fff26edff7457837adc8ad92",
+    "tests/test_m1_runner.py": "12bc73bc5a82a30c27467210125f8b0b8dc095de30f3c133841458b24219143e",
+    "tests/test_m1_verification.py": "4d936a6bbf14f2215003e7a366bbe17de03972182126f32d8642f17d153915be",
+    "tests/test_m1_workspace.py": "8359add2e3278acad212b03c01b785df5d545f94f0548157d18fae1aa910a475",
+    "tests/test_migration_integration.py": "944c4a963d721eb6699caa021e52cc22248a20b3f9a89c7ee7d9c50578a3b4f2",
+    "tests/test_sample_execution.py": "3a0d175f51b35f5c5aac9d4d9080c6f97a2a7b45fb71d1583333c41b257a8a86"
+  },
+  "evidence_archive": "runtime_evidence.zip",
+  "evidence_archive_sha256": "aa820b882a6d3f4dbbf362cba4c93d3218f9018aad063cdf92561a31652eed71",
+  "archive_entry_count": 444,
+  "limitations": [
+    "临时目录不是安全沙箱；恶意候选代码仍可能读取或破坏目录外文件；前后完整性检查不能防止并发竞态或篡改后恢复。",
+    "候选识别是否在测试中并改变行为的作弊在 M1 无法防范。",
+    "场景 04 的错误验收契约仍会产生已知误通过；独立原文 oracle 不进入已批准任务 gate。"
+  ]
+}
