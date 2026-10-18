@@ -1,0 +1,45 @@
+{
+  "schema_version": "m0.2",
+  "task_id": "TASK-01",
+  "revision": "synthetic-01",
+  "environment": {
+    "platform": "synthetic-fixture",
+    "python": "not-run",
+    "tool_versions": {},
+    "lockfile_sha256": null
+  },
+  "results": [
+    {
+      "property_id": "P-001",
+      "method": "UNIT_TEST",
+      "reference": "tests_reference/test_provider_requirement.py::test_missing_provider_raises",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。",
+      "test_count": 1
+    },
+    {
+      "property_id": "P-001",
+      "method": "UNIT_TEST",
+      "reference": "tests_reference/test_provider_requirement.py::test_present_provider_unchanged",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。",
+      "test_count": 1
+    },
+    {
+      "property_id": null,
+      "method": "DIFF_ALLOWLIST",
+      "reference": "allowed_change_paths",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。"
+    }
+  ],
+  "changed_paths": [
+    "config_loader.py"
+  ],
+  "gate": {
+    "status": "PASS",
+    "reason": "全部合成必需检查通过；正式结果需 M1 真实执行",
+    "route": "NONE"
+  },
+  "approval_payload_sha256": "ef2a9e5e4e0914e35f3b898803903e9b82ea78f54e2eaea746c8f683675dcc33"
+}

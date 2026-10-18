@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.925" timestamp="2026-10-18T18:18:23.061599+08:00" hostname="DESKTOP-5NBLU22"><testcase classname="tests_reference.test_provider_requirement" name="test_missing_provider_raises" time="0.001"><failure message="Failed: DID NOT RAISE &lt;class 'config_loader.MissingProviderError'&gt;">def test_missing_provider_raises():
+&gt;       with pytest.raises(MissingProviderError):
+E       Failed: DID NOT RAISE &lt;class 'config_loader.MissingProviderError'&gt;
+
+tests_reference/test_provider_requirement.py:8: Failed</failure></testcase><testcase classname="tests_reference.test_provider_requirement" name="test_present_provider_unchanged" time="0.000" /></testsuite></testsuites>

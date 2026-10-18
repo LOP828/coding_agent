@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/coding-agent/m0/source_requirements.schema.json",
+  "title": "Source Requirements (M0.2) — authoritative source record, not an extra generated Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "requirements"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "m0.2"
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "raw_text",
+          "source_ref",
+          "source_kind",
+          "confirmation",
+          "status",
+          "sha256_utf8"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^R-[0-9]{3,}$"
+          },
+          "raw_text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_kind": {
+            "enum": [
+              "USER_MESSAGE",
+              "SYNTHETIC_FIXTURE"
+            ]
+          },
+          "confirmation": {
+            "enum": [
+              "USER_CONFIRMED",
+              "NOT_APPLICABLE_FIXTURE",
+              "PENDING"
+            ]
+          },
+          "status": {
+            "enum": [
+              "DRAFT",
+              "FROZEN",
+              "SUPERSEDED"
+            ]
+          },
+          "sha256_utf8": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  }
+}

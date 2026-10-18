@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.2, pluggy-1.7.0
+rootdir: /mnt/d/project/coding_agent
+configfile: pyproject.toml
+collected 80 items
+
+tests/test_migration_integration.py .....                                [  6%]
+tests/test_sample_execution.py .....                                     [ 12%]
+tests/test_spec_regressions.py ......................................... [ 63%]
+.............................                                            [100%]
+
+============================= 80 passed in 21.14s ==============================

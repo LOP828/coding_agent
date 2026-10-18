@@ -1,0 +1,46 @@
+{
+  "schema_version": "m0.2",
+  "task_id": "TASK-03",
+  "revision": "synthetic-03",
+  "environment": {
+    "platform": "synthetic-fixture",
+    "python": "not-run",
+    "tool_versions": {},
+    "lockfile_sha256": null
+  },
+  "results": [
+    {
+      "property_id": "P-001",
+      "method": "UNIT_TEST",
+      "reference": "tests_reference/test_provider_requirement.py::test_missing_provider_raises",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。",
+      "test_count": 1
+    },
+    {
+      "property_id": "P-001",
+      "method": "UNIT_TEST",
+      "reference": "tests_reference/test_provider_requirement.py::test_present_provider_unchanged",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。",
+      "test_count": 1
+    },
+    {
+      "property_id": null,
+      "method": "DIFF_ALLOWLIST",
+      "reference": "allowed_change_paths",
+      "status": "FAIL",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。"
+    }
+  ],
+  "changed_paths": [
+    "config_loader.py",
+    "project_config.py"
+  ],
+  "gate": {
+    "status": "HARD_FAIL",
+    "reason": "修改了未授权 project_config.py",
+    "route": "EXECUTION_FAIL"
+  },
+  "approval_payload_sha256": "89ec942b44b97c0f305c4e8c904bb4a2b8676ecf64999b3d5ede357f533abb2d"
+}

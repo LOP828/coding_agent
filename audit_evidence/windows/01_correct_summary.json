@@ -1,0 +1,18 @@
+{
+  "case": "01_correct",
+  "computed_gate": {
+    "status": "PASS",
+    "route": "NONE"
+  },
+  "gate_evidence": "SYNTHETIC_REPORT_AND_SYNTHETIC_CHANGED_PATHS",
+  "actual_candidate_execution": {
+    "exit_code": 0,
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_xml": "01_correct_declared_tests.xml",
+    "log": "01_correct_declared_tests.log"
+  }
+}

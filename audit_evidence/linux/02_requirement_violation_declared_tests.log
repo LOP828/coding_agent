@@ -1,0 +1,13 @@
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+_________________________ test_missing_provider_raises _________________________
+
+    def test_missing_provider_raises():
+>       with pytest.raises(MissingProviderError):
+E       Failed: DID NOT RAISE <class 'config_loader.MissingProviderError'>
+
+tests_reference/test_provider_requirement.py:8: Failed
+=========================== short test summary info ============================
+FAILED tests_reference/test_provider_requirement.py::test_missing_provider_raises
+1 failed, 1 passed in 0.93s
+

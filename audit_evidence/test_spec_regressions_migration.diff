@@ -1,0 +1,69 @@
+--- checks/test_spec_regressions.py
++++ tests/test_spec_regressions.py
+@@ -8,13 +8,13 @@
+ import pytest
+ from jsonschema import ValidationError
+ 
+-from spec_reference import (
++from coding_agent.m0 import (
+     PolicyError, aggregate_gate, approval_payload_sha256, file_text_sha256,
+     path_matches, read_json, scope_violations, text_sha256,
+     validate_admission, validate_path, validate_report, validate_schema,
+ )
+ 
+-ROOT = Path(__file__).resolve().parents[1]
++ROOT = Path(__file__).resolve().parent / "data" / "m0"
+ CASES = ["01_correct", "02_requirement_violation", "03_scope_violation", "04_wrong_acceptance"]
+ 
+ 
+@@ -35,7 +35,7 @@
+ def test_fixture_admission_and_report(case):
+     task, source, records, report = fixture(case)
+     admit(task, source, records)
+-    actual = validate_report(task, report, ROOT, expected_revision=report["revision"])
++    actual = validate_report(task, report, expected_revision=report["revision"])
+     assert actual["status"] == {CASES[0]: "PASS", CASES[1]: "HARD_FAIL", CASES[2]: "HARD_FAIL", CASES[3]: "PASS"}[case]
+ 
+ 
+@@ -220,7 +220,7 @@
+     report["gate"].update(status="PASS", route="NONE")
+     assert aggregate_gate(task, report["results"], report["changed_paths"])["status"] == "HARD_FAIL"
+     with pytest.raises(PolicyError, match="REPORTED_GATE_MISMATCH"):
+-        validate_report(task, report, ROOT, expected_revision=report["revision"])
++        validate_report(task, report, expected_revision=report["revision"])
+ 
+ 
+ @pytest.mark.parametrize("count", [None, 0, -1, "1", True])
+@@ -231,7 +231,7 @@
+     else:
+         report["results"][0]["test_count"] = count
+     with pytest.raises(ValidationError):
+-        validate_schema(ROOT, "verification_report", report)
++        validate_schema("verification_report", report)
+ 
+ 
+ @pytest.mark.parametrize("status", ["NOT_RUN", "UNVERIFIABLE"])
+@@ -276,7 +276,7 @@
+     revision = report["revision"]
+     report[field] = value
+     with pytest.raises(PolicyError, match=code):
+-        validate_report(task, report, ROOT, expected_revision=revision)
++        validate_report(task, report, expected_revision=revision)
+ 
+ 
+ def test_protection_wins_overlap():
+@@ -308,7 +308,7 @@
+     task, _, _, report = fixture()
+     report["results"][0]["required"] = False
+     with pytest.raises(ValidationError):
+-        validate_schema(ROOT, "verification_report", report)
++        validate_schema("verification_report", report)
+ 
+ 
+ def test_all_mandatory_checks_cannot_be_made_optional():
+@@ -316,4 +316,4 @@
+     for row in task["properties"][0]["checks"]:
+         row["required"] = False
+     with pytest.raises(ValidationError):
+-        validate_schema(ROOT, "atomic_task", task)
++        validate_schema("atomic_task", task)

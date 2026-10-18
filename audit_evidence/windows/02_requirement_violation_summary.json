@@ -1,0 +1,18 @@
+{
+  "case": "02_requirement_violation",
+  "computed_gate": {
+    "status": "HARD_FAIL",
+    "route": "EXECUTION_FAIL"
+  },
+  "gate_evidence": "SYNTHETIC_REPORT_AND_SYNTHETIC_CHANGED_PATHS",
+  "actual_candidate_execution": {
+    "exit_code": 1,
+    "total": 2,
+    "passed": 1,
+    "failed": 1,
+    "errors": 0,
+    "skipped": 0,
+    "junit_xml": "02_requirement_violation_declared_tests.xml",
+    "log": "02_requirement_violation_declared_tests.log"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "m0.2",
+  "task_id": "TASK-02",
+  "revision": "synthetic-02",
+  "environment": {
+    "platform": "synthetic-fixture",
+    "python": "not-run",
+    "tool_versions": {},
+    "lockfile_sha256": null
+  },
+  "results": [
+    {
+      "property_id": "P-001",
+      "method": "UNIT_TEST",
+      "reference": "tests_reference/test_provider_requirement.py::test_missing_provider_raises",
+      "status": "FAIL",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。",
+      "test_count": 1
+    },
+    {
+      "property_id": "P-001",
+      "method": "UNIT_TEST",
+      "reference": "tests_reference/test_provider_requirement.py::test_present_provider_unchanged",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。",
+      "test_count": 1
+    },
+    {
+      "property_id": null,
+      "method": "DIFF_ALLOWLIST",
+      "reference": "allowed_change_paths",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。"
+    }
+  ],
+  "changed_paths": [
+    "config_loader.py"
+  ],
+  "gate": {
+    "status": "HARD_FAIL",
+    "reason": "缺少 provider 不报错，必需单测失败",
+    "route": "EXECUTION_FAIL"
+  },
+  "approval_payload_sha256": "63b620a70d2ef98db31eb4d6651a95b1532f254dc66123dd55f65ff52cea68e8"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "m0.2",
+  "task_id": "TASK-04",
+  "revision": "synthetic-04",
+  "environment": {
+    "platform": "synthetic-fixture",
+    "python": "not-run",
+    "tool_versions": {},
+    "lockfile_sha256": null
+  },
+  "results": [
+    {
+      "property_id": "P-001",
+      "method": "UNIT_TEST",
+      "reference": "tests_wrong_contract/test_provider_wrong_contract.py::test_missing_provider_defaults_to_local",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。",
+      "test_count": 1
+    },
+    {
+      "property_id": "P-001",
+      "method": "UNIT_TEST",
+      "reference": "tests_wrong_contract/test_provider_wrong_contract.py::test_present_provider_unchanged",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。",
+      "test_count": 1
+    },
+    {
+      "property_id": null,
+      "method": "DIFF_ALLOWLIST",
+      "reference": "allowed_change_paths",
+      "status": "PASS",
+      "evidence": "合成期望证据，不是 Runner 实测结果；实际自检见 audit_evidence/。"
+    }
+  ],
+  "changed_paths": [
+    "config_loader.py"
+  ],
+  "gate": {
+    "status": "PASS",
+    "reason": "按已批准契约汇总，全部必需检查通过；不对原始需求的语义正确性作保证。",
+    "route": "NONE"
+  },
+  "approval_payload_sha256": "2b19a786f8005584f3c2f74ff060b6e55efaca90fc3a6bfea7b12d5a91bf7d8e"
+}

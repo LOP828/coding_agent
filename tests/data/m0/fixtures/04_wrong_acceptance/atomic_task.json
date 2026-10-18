@@ -1,0 +1,61 @@
+{
+  "schema_version": "m0.2",
+  "task_id": "TASK-04",
+  "title": "实现 provider 配置校验（合成实验）",
+  "goal_ref": "G-DEMO",
+  "stage_ref": "S-DEMO",
+  "requirement_refs": [
+    "R-001"
+  ],
+  "allowed_change_paths": [
+    "config_loader.py"
+  ],
+  "protected_paths": [
+    "tests_reference/**",
+    "tests_wrong_contract/**",
+    "project_config.py"
+  ],
+  "acceptance_review": {
+    "status": "APPROVED",
+    "basis": "合成基准审批，不代表真实用户或可信生产审批。",
+    "approval_ref": "fixture-review-04",
+    "approved_payload_sha256": "2b19a786f8005584f3c2f74ff060b6e55efaca90fc3a6bfea7b12d5a91bf7d8e"
+  },
+  "properties": [
+    {
+      "id": "P-001",
+      "statement": "缺少 provider 时自动补上 local 默认值，并返回配置。",
+      "origin": "EXPLICIT",
+      "requirement_refs": [
+        "R-001"
+      ],
+      "scope_impact": "LOCAL_REFINEMENT",
+      "scope_expansion_authorized": false,
+      "checks": [
+        {
+          "method": "UNIT_TEST",
+          "required": true,
+          "reference": "tests_wrong_contract/test_provider_wrong_contract.py::test_missing_provider_defaults_to_local"
+        },
+        {
+          "method": "UNIT_TEST",
+          "required": true,
+          "reference": "tests_wrong_contract/test_provider_wrong_contract.py::test_present_provider_unchanged"
+        }
+      ]
+    }
+  ],
+  "task_checks": [
+    {
+      "method": "DIFF_ALLOWLIST",
+      "required": true,
+      "reference": "allowed_change_paths"
+    }
+  ],
+  "acceptance_test_manifest": [
+    {
+      "path": "tests_wrong_contract/test_provider_wrong_contract.py",
+      "sha256_utf8_lf": "fb2aea61bf29ed424b2752bcaf15af14e17c94e93ecb5fc2dee290330bebc363"
+    }
+  ]
+}

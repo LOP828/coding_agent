@@ -1,0 +1,18 @@
+{
+  "computed_gate": {
+    "status": "PASS",
+    "route": "NONE"
+  },
+  "oracle": {
+    "exit_code": 1,
+    "total": 2,
+    "passed": 1,
+    "failed": 1,
+    "errors": 0,
+    "skipped": 0,
+    "junit_xml": "04_independent_source_oracle.xml",
+    "log": "04_independent_source_oracle.log"
+  },
+  "evaluation_label": "FALSE_PASS_EXPECTED_KNOWN_GAP",
+  "m2_semantic_detection": "NOT_IMPLEMENTED_NOT_CLAIMED"
+}

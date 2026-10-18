@@ -1,0 +1,87 @@
+{
+  "archive": "docs/coding_agent_m0_spec_v0_2_handoff.zip",
+  "archive_sha256": "0cd2bd4f040f9d53fe96e8483280adea19df7ed523602facca80efc78ae28b03",
+  "byte_identical_copies": 20,
+  "files": [
+    {
+      "path": "tests/data/m0/example_code/01_correct/config_loader.py",
+      "sha256": "06d4e757866374f4b7f09700788c8d2c8ff821a0220604fce524ed9465861262"
+    },
+    {
+      "path": "tests/data/m0/example_code/02_requirement_violation/config_loader.py",
+      "sha256": "cc0cb330456f59c3d1b75665ee38e66517101627c2cab80fd11ddeb9811bec96"
+    },
+    {
+      "path": "tests/data/m0/example_code/03_scope_violation/config_loader.py",
+      "sha256": "dd535ede739b34e8b7951a0c7e5137f6247ceae71db3b214e15039f57f0b29ef"
+    },
+    {
+      "path": "tests/data/m0/example_code/03_scope_violation/project_config.py",
+      "sha256": "6e15a3e12c50db73e6f7afc2c7123971f040233449782fbf94c00b1a7546ac93"
+    },
+    {
+      "path": "tests/data/m0/example_code/04_wrong_acceptance/config_loader.py",
+      "sha256": "ff3977c3a0e2703a6daebb12b2fbc8925b71b59eaf8de50b2b530a5cd91dd31e"
+    },
+    {
+      "path": "tests/data/m0/fixtures/01_correct/atomic_task.json",
+      "sha256": "a2af8b9338b7fd2d6031b6bde399548137b2416fe3bd1c45d4759b752b6ab0ea"
+    },
+    {
+      "path": "tests/data/m0/fixtures/01_correct/verification_report_expected.json",
+      "sha256": "614e3b093400bf1ed8112844aa9d256e18b614f1a95c06da87d59b7d82df14e9"
+    },
+    {
+      "path": "tests/data/m0/fixtures/02_requirement_violation/atomic_task.json",
+      "sha256": "08652ca9ee47cc4e7e99d12db4adf85c8f1b7d306572f836126c62c5df927ded"
+    },
+    {
+      "path": "tests/data/m0/fixtures/02_requirement_violation/verification_report_expected.json",
+      "sha256": "23d3a370f96d399bbeaeaf3621a7b8bc61172abc632e40a2cb41eef71960569c"
+    },
+    {
+      "path": "tests/data/m0/fixtures/03_scope_violation/atomic_task.json",
+      "sha256": "46e7f6f76c673fb3d6cd596ec84c5de3a35e255ed6e8d2b471ad95bee41f2ced"
+    },
+    {
+      "path": "tests/data/m0/fixtures/03_scope_violation/verification_report_expected.json",
+      "sha256": "52db5bf46521c2b9f0904b615d42994ac8537b72b9fc1428ac75767f5d7fdb24"
+    },
+    {
+      "path": "tests/data/m0/fixtures/04_wrong_acceptance/atomic_task.json",
+      "sha256": "063a7b79881f9de5854d3aca817f178fb66a2d5f940ef61796d9638ebb2c51fe"
+    },
+    {
+      "path": "tests/data/m0/fixtures/04_wrong_acceptance/verification_report_expected.json",
+      "sha256": "af5b0f3f980e6e004c776a770fd24fdfafeee830b10adf41299cdd1e5f5439fd"
+    },
+    {
+      "path": "tests/data/m0/fixtures/source_requirements.json",
+      "sha256": "1d875d82d786ba5cd476b555de052a0670246106c101c962954f4ec9a8373c9d"
+    },
+    {
+      "path": "tests/data/m0/fixtures/trusted_review_records.json",
+      "sha256": "b14afa7b8e0a484a03ea1daee2d0a1d1095cdd3f24076d7d6c3281be47bab699"
+    },
+    {
+      "path": "src/coding_agent/schemas/atomic_task.schema.json",
+      "sha256": "66f570f7e59c17182a1c8ed73504bd1aebd27b8a589fdb04c5ec77c6f6cfb697"
+    },
+    {
+      "path": "src/coding_agent/schemas/source_requirements.schema.json",
+      "sha256": "73ed7ce1c6976e2599a4a41048002c043b135c6481e71576a50740e4930d557a"
+    },
+    {
+      "path": "src/coding_agent/schemas/verification_report.schema.json",
+      "sha256": "a946c2f3493531cabb80a43daf9f1da4ebff4c1d7f24301a656ce2e47b4ff40a"
+    },
+    {
+      "path": "tests/data/m0/tests_reference/test_provider_requirement.py",
+      "sha256": "0f8f9393cae9b9f9cc70a535509d5d085d157060c3793f80737d80ee6b94d302"
+    },
+    {
+      "path": "tests/data/m0/tests_wrong_contract/test_provider_wrong_contract.py",
+      "sha256": "fb2aea61bf29ed424b2752bcaf15af14e17c94e93ecb5fc2dee290330bebc363"
+    }
+  ]
+}

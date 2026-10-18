@@ -1,0 +1,17 @@
+{
+  "command": "python -m pytest",
+  "exit_code": 0,
+  "collected": 80,
+  "passed": 80,
+  "failed": 0,
+  "skipped": 0,
+  "errors": 0,
+  "system": "Linux",
+  "python": "3.11.15",
+  "executable": "/mnt/d/project/coding_agent/.venv/bin/python",
+  "locale_encoding": "UTF-8",
+  "utf8_mode": 0,
+  "PYTHONUTF8": null,
+  "pytest": "9.0.2",
+  "jsonschema": "4.26.0"
+}

@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/coding-agent/m0/verification_report.schema.json",
+  "title": "VerificationReport (M0.2 minimal)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "revision",
+    "environment",
+    "results",
+    "gate",
+    "approval_payload_sha256",
+    "changed_paths"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "m0.2"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "platform",
+        "python",
+        "tool_versions",
+        "lockfile_sha256"
+      ],
+      "properties": {
+        "platform": {
+          "type": "string",
+          "minLength": 1
+        },
+        "python": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tool_versions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "lockfile_sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          ]
+        }
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "property_id",
+          "method",
+          "reference",
+          "status",
+          "evidence"
+        ],
+        "properties": {
+          "property_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^P-[0-9]{3,}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1
+          },
+          "method": {
+            "enum": [
+              "UNIT_TEST",
+              "SCHEMA",
+              "HASH",
+              "DIFF_ALLOWLIST",
+              "STATIC_CHECK",
+              "PROPERTY_TEST",
+              "AI_SEMANTIC_REVIEW",
+              "HUMAN_REVIEW"
+            ]
+          },
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "NOT_RUN",
+              "UNVERIFIABLE"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "test_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "method",
+                "status"
+              ],
+              "properties": {
+                "method": {
+                  "enum": [
+                    "UNIT_TEST",
+                    "PROPERTY_TEST"
+                  ]
+                },
+                "status": {
+                  "const": "PASS"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "test_count"
+              ],
+              "properties": {
+                "test_count": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "changed_paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason",
+        "route"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "HARD_FAIL",
+            "BLOCKED"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "route": {
+          "enum": [
+            "NONE",
+            "EXECUTION_FAIL",
+            "TASK_SPEC_FAIL",
+            "BLOCKED"
+          ]
+        }
+      }
+    },
+    "approval_payload_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

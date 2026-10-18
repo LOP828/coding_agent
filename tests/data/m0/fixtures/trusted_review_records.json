@@ -1,0 +1,29 @@
+{
+  "review_records": [
+    {
+      "approval_ref": "fixture-review-01",
+      "task_id": "TASK-01",
+      "status": "APPROVED",
+      "approved_payload_sha256": "ef2a9e5e4e0914e35f3b898803903e9b82ea78f54e2eaea746c8f683675dcc33"
+    },
+    {
+      "approval_ref": "fixture-review-02",
+      "task_id": "TASK-02",
+      "status": "APPROVED",
+      "approved_payload_sha256": "63b620a70d2ef98db31eb4d6651a95b1532f254dc66123dd55f65ff52cea68e8"
+    },
+    {
+      "approval_ref": "fixture-review-03",
+      "task_id": "TASK-03",
+      "status": "APPROVED",
+      "approved_payload_sha256": "89ec942b44b97c0f305c4e8c904bb4a2b8676ecf64999b3d5ede357f533abb2d"
+    },
+    {
+      "approval_ref": "fixture-review-04",
+      "task_id": "TASK-04",
+      "status": "APPROVED",
+      "approved_payload_sha256": "2b19a786f8005584f3c2f74ff060b6e55efaca90fc3a6bfea7b12d5a91bf7d8e"
+    }
+  ],
+  "scope_authorizations": []
+}

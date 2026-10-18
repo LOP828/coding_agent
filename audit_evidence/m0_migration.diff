@@ -1,0 +1,72 @@
+--- checks/spec_reference.py
++++ src/coding_agent/m0.py
+@@ -1,4 +1,4 @@
+-"""Small, non-production specification oracle for the M0.2 fixture audit.
++"""M0.2 structural admission and deterministic policy aggregation.
+ 
+ No agent, sandbox, Git diff collector, approval service, or semantic checker.
+ Trust comes from the caller supplying controller-owned records, not from JSON
+@@ -8,6 +8,7 @@
+ 
+ import hashlib
+ import json
++from importlib.resources import files
+ from pathlib import Path
+ from typing import Any
+ 
+@@ -24,8 +25,10 @@
+     return json.loads(path.read_text(encoding="utf-8"))
+ 
+ 
+-def validate_schema(root: Path, name: str, data: Json) -> None:
+-    schema = read_json(root / "schemas" / f"{name}.schema.json")
++def validate_schema(name: str, data: Json, *, schema_root: Path | None = None) -> None:
++    """Load bundled schemas by default; an explicit root contains schema files."""
++    resource_root = files("coding_agent").joinpath("schemas") if schema_root is None else schema_root
++    schema = json.loads(resource_root.joinpath(f"{name}.schema.json").read_text(encoding="utf-8"))
+     Draft202012Validator.check_schema(schema)
+     Draft202012Validator(schema).validate(data)
+ 
+@@ -106,13 +109,14 @@
+     task: Json,
+     source: Json,
+     trusted_records: Json,
+-    root: Path,
++    test_root: Path,
+     *,
++    schema_root: Path | None = None,
+     fixture_mode: bool = False,
+ ) -> None:
+     """Return only after structural admission; do not execute code or attest intent."""
+-    validate_schema(root, "source_requirements", source)
+-    validate_schema(root, "atomic_task", task)
++    validate_schema("source_requirements", source, schema_root=schema_root)
++    validate_schema("atomic_task", task, schema_root=schema_root)
+     sources = {row["id"]: row for row in source["requirements"]}
+     if len(sources) != len(source["requirements"]):
+         raise PolicyError("DUPLICATE_REQUIREMENT_ID")
+@@ -180,8 +184,8 @@
+         raise PolicyError("TEST_MANIFEST_COVERAGE_MISMATCH")
+     for relative, expected in manifest.items():
+         validate_path(relative)
+-        full = (root / relative).resolve()
+-        if not full.is_relative_to(root.resolve()):
++        full = (test_root / relative).resolve()
++        if not full.is_relative_to(test_root.resolve()):
+             raise PolicyError("TEST_PATH_OUTSIDE_PACKAGE")
+         if not full.is_file() or file_text_sha256(full) != expected:
+             raise PolicyError("TEST_CONTENT_HASH_MISMATCH")
+@@ -242,9 +246,11 @@
+     return {"status": "PASS", "route": "NONE"}
+ 
+ 
+-def validate_report(task: Json, report: Json, root: Path, *, expected_revision: str) -> Json:
++def validate_report(
++    task: Json, report: Json, *, expected_revision: str, schema_root: Path | None = None
++) -> Json:
+     """Check a report only AFTER successful admission by the caller."""
+-    validate_schema(root, "verification_report", report)
++    validate_schema("verification_report", report, schema_root=schema_root)
+     if report["task_id"] != task["task_id"]:
+         raise PolicyError("REPORT_TASK_MISMATCH")
+     if report["revision"] != expected_revision:
