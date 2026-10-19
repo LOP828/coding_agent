@@ -1,0 +1,18 @@
+{
+  "command": "python -m pytest",
+  "exit_code": 0,
+  "collected": 260,
+  "passed": 260,
+  "failed": 0,
+  "skipped": 0,
+  "errors": 0,
+  "system": "Linux",
+  "python": "3.11.15",
+  "executable": "/tmp/coding-agent-m1-category8-s6qqkjt0/bin/python3.11",
+  "locale_encoding": "UTF-8",
+  "utf8_mode": 0,
+  "PYTHONUTF8": null,
+  "pytest": "9.0.2",
+  "jsonschema": "4.26.0",
+  "skip_reasons": []
+}

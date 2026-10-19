@@ -1,0 +1,54 @@
+{
+  "through_commit": "48f1585c74155b1d770381c0575ef808a3e733b4",
+  "commits": [
+    {
+      "sha": "38df9db7677b9c0854452c126ab8c94efaa5c260",
+      "title": "M3 需求，MK 已确认"
+    },
+    {
+      "sha": "98438d0291b46b68080fc954cce0d1ac55765b15",
+      "title": "M3 确定性任务地图与只读规划准备"
+    },
+    {
+      "sha": "af9885e156fdb8be1a4cec289df7ee447dd31ff3",
+      "title": "M3 调用前验收与只读沙箱实测证据"
+    },
+    {
+      "sha": "f6001007835e915e62e7d7b17dab7ee9784f539a",
+      "title": "M3 规划原始输出隔离与首次调用授权记录"
+    },
+    {
+      "sha": "88ee40875613c3f3bc9b53f3606028d92a95128b",
+      "title": "M3 首次规划调用失败与原始证据记录"
+    },
+    {
+      "sha": "c42a1302c7f01277e23555f90c11b97d93b2854d",
+      "title": "M3 拆分接口 Schema 并记录第二次规划调用授权"
+    },
+    {
+      "sha": "0dfea8b712ad46299ae329379535d15364fb48fc",
+      "title": "M3 第二次规划提案与完整校验证据"
+    },
+    {
+      "sha": "1853513a28ec775ebae16acc0492838e967a5815",
+      "title": "M3 记录规划语义限制与第三次调用授权"
+    },
+    {
+      "sha": "9288b0d84ca7a9c6d87c3d635388d4e02d3ab0cd",
+      "title": "M3 第三次规划提案与待澄清问题证据"
+    },
+    {
+      "sha": "e72134ce94c76f5a371b093367497acc40447179",
+      "title": "M3 冻结 R-004 并记录第四次规划调用授权"
+    },
+    {
+      "sha": "58fde0d7a4b08ded4ffd6bbd18347573d02f2647",
+      "title": "M3 第四次规划提案与完整校验证据"
+    },
+    {
+      "sha": "48f1585c74155b1d770381c0575ef808a3e733b4",
+      "title": "M3 批准第四次提案入图并导出状态与限制"
+    }
+  ],
+  "final_evidence_commit": "The commit containing this final report follows these recorded commits."
+}

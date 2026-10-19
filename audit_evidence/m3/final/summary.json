@@ -1,0 +1,264 @@
+{
+  "stage": "M3_FINAL_ACCEPTANCE_COMPLETE",
+  "scope": "Deterministic task-map controller, scripted Runner demo, real read-only planning and MK approval; planned atomic tasks are not executed.",
+  "tested_source_commit": "58fde0d7a4b08ded4ffd6bbd18347573d02f2647",
+  "report_parent_commit": "48f1585c74155b1d770381c0575ef808a3e733b4",
+  "acceptance": {
+    "linux": {
+      "command": "python -m pytest",
+      "exit_code": 0,
+      "collected": 260,
+      "passed": 260,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "system": "Linux",
+      "python": "3.11.15",
+      "executable": "/tmp/coding-agent-m1-category8-s6qqkjt0/bin/python3.11",
+      "locale_encoding": "UTF-8",
+      "utf8_mode": 0,
+      "PYTHONUTF8": null,
+      "pytest": "9.0.2",
+      "jsonschema": "4.26.0",
+      "skip_reasons": []
+    },
+    "windows": {
+      "command": "python -m pytest",
+      "exit_code": 0,
+      "collected": 260,
+      "passed": 260,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "system": "Windows",
+      "python": "3.13.7",
+      "executable": "D:\\project\\coding_agent\\.venv-windows\\Scripts\\python.exe",
+      "locale_encoding": "cp936",
+      "utf8_mode": 0,
+      "PYTHONUTF8": null,
+      "pytest": "9.0.2",
+      "jsonschema": "4.26.0",
+      "skip_reasons": []
+    }
+  },
+  "duration_seconds": {
+    "linux": 228.13,
+    "windows": 494.23
+  },
+  "commands": {
+    "linux": "/tmp/coding-agent-m1-category8-s6qqkjt0/bin/python3.11 -m pytest",
+    "windows": ".\\.venv-windows\\Scripts\\python.exe -m pytest; PYTHONUTF8 unset"
+  },
+  "core_autocrlf": "true",
+  "original_tests_retained": 183,
+  "M3_tests": 77,
+  "replaced_tests": [],
+  "approval": {
+    "status": "APPROVED",
+    "proposal_id": "planning-04",
+    "proposal_sha256": "d36601314fea78e5204216afbe84ac8937f5739d34299a67458409d09f19f04a",
+    "map_revision_before": 4,
+    "map_revision_after": 5,
+    "event_path": "/mnt/d/project/coding_agent_m3_state/provider-validation/history/00000011.json",
+    "event_sha256": "bbb7256110e1f8bc5aaf423feee6f2949b2914d0100c156e4c31afada1ea5920",
+    "controller_exit_code": 0,
+    "atomic_tasks_started": 0,
+    "model_calls": 4,
+    "remaining_calls": 1,
+    "remaining_call_policy": "MK: remaining one call will not be used"
+  },
+  "model_calls": {
+    "counting_unit": "AI_BACKED_CODEX_EXEC_INVOCATION",
+    "used": 4,
+    "limit": 5,
+    "unused": 1,
+    "unused_will_not_be_used": true,
+    "automatic_retries": 0,
+    "calls": [
+      {
+        "number": 1,
+        "model": "gpt-6-sol",
+        "reasoning": "medium",
+        "request_sha256": "8ab9ba84df8974c227f5de83580973a81737c46667129e3009cbda79e7917997",
+        "exit_code": 1,
+        "result": "API_REJECTED_NO_PROPOSAL",
+        "requirements": [
+          "R-003"
+        ],
+        "question_count": null,
+        "evidence": "audit_evidence/m3/planning-01"
+      },
+      {
+        "number": 2,
+        "model": "gpt-6-sol",
+        "reasoning": "medium",
+        "request_sha256": "570ac3b665b46652fa28d4facfe716dd3832871d06eeab4b8fa5424bb70cfdb6",
+        "exit_code": 0,
+        "result": "REJECTED_BY_MK",
+        "requirements": [
+          "R-003"
+        ],
+        "question_count": 0,
+        "evidence": "audit_evidence/m3/planning-02"
+      },
+      {
+        "number": 3,
+        "model": "gpt-6-sol",
+        "reasoning": "medium",
+        "request_sha256": "55e463c52689f943d99956faf3ef47b9578e99ec330d1c0b6df99f341c589fd8",
+        "exit_code": 0,
+        "result": "REJECTED_BY_MK",
+        "requirements": [
+          "R-003"
+        ],
+        "question_count": 2,
+        "evidence": "audit_evidence/m3/planning-03"
+      },
+      {
+        "number": 4,
+        "model": "gpt-6-sol",
+        "reasoning": "medium",
+        "request_sha256": "9b0946450cfbdcbbe02a2fdc1c8aac325063a78967ab023dafa98a4e447f7ab2",
+        "exit_code": 0,
+        "result": "APPROVED_BY_MK",
+        "requirements": [
+          "R-003",
+          "R-004"
+        ],
+        "question_count": 0,
+        "evidence": "audit_evidence/m3/planning-04"
+      }
+    ]
+  },
+  "final_map": {
+    "schema_version": "m3.1",
+    "revision": 5,
+    "goal": "配置校验扩展：只读规划",
+    "source_sha256": "cdc382bb12767c43420fdcad6ae47c6f890d95d7b98a6350573182813a5db619",
+    "focus": "stage",
+    "active_run": null,
+    "nodes": [
+      {
+        "id": "stage",
+        "parent_id": null,
+        "title": "stage",
+        "type": "STAGE",
+        "requirement_refs": [
+          "R-003"
+        ],
+        "origin": "EXPLICIT",
+        "derivation_reason": "",
+        "status": "READY",
+        "created_by": "MK",
+        "approval_ref": null,
+        "deferred_by": null
+      },
+      {
+        "id": "validate_provider",
+        "parent_id": "stage",
+        "title": "校验 provider 并使用指定异常",
+        "type": "ATOMIC",
+        "requirement_refs": [
+          "R-003",
+          "R-004"
+        ],
+        "origin": "DERIVED",
+        "derivation_reason": "将 provider 规则拆为可独立实施的任务。",
+        "status": "PENDING",
+        "created_by": "AI_APPROVED_BY_MK",
+        "approval_ref": "MK 批准第 4 次提案入图；绑定提案哈希与地图版本 4。",
+        "deferred_by": null
+      },
+      {
+        "id": "validate_timeout",
+        "parent_id": "stage",
+        "title": "校验可选 timeout",
+        "type": "ATOMIC",
+        "requirement_refs": [
+          "R-003",
+          "R-004"
+        ],
+        "origin": "DERIVED",
+        "derivation_reason": "将 timeout 规则拆为可独立实施的任务。",
+        "status": "PENDING",
+        "created_by": "AI_APPROVED_BY_MK",
+        "approval_ref": "MK 批准第 4 次提案入图；绑定提案哈希与地图版本 4。",
+        "deferred_by": null
+      }
+    ],
+    "deferred_requirements": []
+  },
+  "requirements": {
+    "schema_version": "m0.2",
+    "requirements": [
+      {
+        "id": "R-003",
+        "raw_text": "配置校验需要再加两条规则：provider 只能是 openai 或 local；如果配置里有 timeout，必须是正整数，否则抛出 InvalidConfigError。",
+        "source_ref": "git:38df9db7677b9c0854452c126ab8c94efaa5c260:docs/M3/Coding_Agent_M3_Codex_Task.md#八.4;MK-confirmed-user-message",
+        "source_kind": "USER_MESSAGE",
+        "confirmation": "USER_CONFIRMED",
+        "status": "FROZEN",
+        "sha256_utf8": "5007ee5cd6c75bf10dd9ff04710fee55d43fce9589ddc56a86a385232d79912e"
+      },
+      {
+        "id": "R-004",
+        "raw_text": "R-004（对 R-003 的澄清）：provider 存在但不是 openai 或 local 时，同样抛出 InvalidConfigError；缺少 provider 时仍按原规则抛出 MissingProviderError。timeout 必须是整数类型且大于 0；布尔值、字符串（例如 \"30\"）、浮点数（例如 30.0）一律视为不合法，抛出 InvalidConfigError。",
+        "source_ref": "MK-confirmed-user-message:planning-04:R-004",
+        "source_kind": "USER_MESSAGE",
+        "confirmation": "USER_CONFIRMED",
+        "status": "FROZEN",
+        "sha256_utf8": "96d41bbd9a9586198e49ecb757de345469fa8910af75043c7e1c957293b507d8"
+      }
+    ]
+  },
+  "status_export": "exports/status.md",
+  "script_demo": {
+    "model_calls": 0,
+    "runner_gate": {
+      "status": "PASS",
+      "route": "NONE",
+      "reason": "Controller-collected evidence"
+    },
+    "focus_after": "root",
+    "deferred_finding_status": "OPEN",
+    "sibling_request": "REJECTED",
+    "uncovered_requirements": [
+      "R-003"
+    ],
+    "path": "/mnt/d/project/coding_agent_m3_runs/final-script/script-demo"
+  },
+  "script_demo_notice": "Previously recorded no-model demo with real Runner; not rerun during this final acceptance. Current full suite also exercises actual Runner workflows.",
+  "sandbox": {
+    "proof": "/mnt/d/project/coding_agent_m3_runs/readonly-83e7a33c6a4c/state/evidence/readonly-proof.json",
+    "usable_for_planning": true,
+    "platform": "Linux",
+    "codex_version": "codex-cli 0.163.0",
+    "runtime_archive": "audit_evidence/m3/final/runtime-final.zip",
+    "native_windows_sandbox_tested": false
+  },
+  "implementation_evidence": "audit_evidence/m3/summary.json (pre-call snapshot retained unchanged)",
+  "known_limitations": "docs/M3/Known_Limitations.md",
+  "planned_atomic_tasks_started": 0,
+  "pending_next_stage": [
+    "MK orders validate_provider before validate_timeout",
+    "Acceptance cases must be authored and approved before execution",
+    "Combined invalid-rule priority remains unspecified"
+  ],
+  "inherited_boundaries": [
+    "No semantic judgement: an empty questions list does not prove no assumptions.",
+    "MK entrypoint assumes trusted local operator, not hostile same-user authentication.",
+    "History is append-only through the controller; hashes detect tampering but do not provide physically immutable storage.",
+    "M2 candidate worker is not an OS sandbox; external material hashes detect changes after execution.",
+    "Graceful MK stop keeps RUNNING until the current process exits or times out; no immediate kill guarantee.",
+    "Only Linux Codex sandbox tested; no native Windows sandbox claim."
+  ],
+  "preservation": {
+    "baseline_commit": "a99d689",
+    "checked_files": 101,
+    "changed_existing_tests_schemas_m0_and_archives": [],
+    "frozen_M3_task_sha256": "82458885fdc12c94af72343d21d99c9c695e9a2fd515b9d4dba7001bb2293442",
+    "R003_raw_text_sha256": "5007ee5cd6c75bf10dd9ff04710fee55d43fce9589ddc56a86a385232d79912e",
+    "R004_raw_text_sha256": "96d41bbd9a9586198e49ecb757de345469fa8910af75043c7e1c957293b507d8"
+  },
+  "push_performed": false
+}

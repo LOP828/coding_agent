@@ -1,0 +1,40 @@
+{
+  "criteria": [
+    {
+      "id": "R-M3-01",
+      "status": "PASS",
+      "evidence_summary": "控制层地图、仅追加历史、哈希绑定的 MK 批准事件；需求版本保留旧历史"
+    },
+    {
+      "id": "R-M3-02",
+      "status": "PASS",
+      "evidence_summary": "显式状态机、单 RUNNING、真实 Runner 最终结果、焦点返回；原子 READY→DONE 拒绝"
+    },
+    {
+      "id": "R-M3-03",
+      "status": "PASS",
+      "evidence_summary": "结构化发现暂存与 MK 提升/删除；解析失败保留原文"
+    },
+    {
+      "id": "R-M3-04",
+      "status": "PASS",
+      "evidence_summary": "R-003 与 R-004 冻结、原文哈希、EXPLICIT/DERIVED/UNSOURCED 与结构覆盖"
+    },
+    {
+      "id": "R-M3-05",
+      "status": "PASS",
+      "evidence_summary": "实测只读沙箱；4 次已授权调用；第 4 次产生两个节点并由 MK 批准"
+    },
+    {
+      "id": "R-M3-06",
+      "status": "PASS",
+      "evidence_summary": "保护控制层/状态路径、只读 AI 构造器、负例与沙箱实测证据"
+    },
+    {
+      "id": "R-M3-07",
+      "status": "PASS",
+      "evidence_summary": "控制层导出 exports/status.md"
+    }
+  ],
+  "scope_note": "PASS means M3 implementation/acceptance completed, not execution of approved planning tasks or semantic-completeness proof."
+}

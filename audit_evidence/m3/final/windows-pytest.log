@@ -1,0 +1,31 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.7, pytest-9.0.2, pluggy-1.7.0
+rootdir: D:\project\coding_agent
+configfile: pyproject.toml
+collected 260 items
+
+tests\test_m1_anti_cheating.py .................                         [  6%]
+tests\test_m1_known_gap_category8.py .                                   [  6%]
+tests\test_m1_runner.py ....                                             [  8%]
+tests\test_m1_verification.py ............                               [ 13%]
+tests\test_m1_workspace.py ...............                               [ 18%]
+tests\test_m2_executor.py ......                                         [ 21%]
+tests\test_m2_protocol.py .......................                        [ 30%]
+tests\test_m2_verification.py ...................                        [ 37%]
+tests\test_m2_workflow.py ......                                         [ 39%]
+tests\test_m3_findings.py ......                                         [ 41%]
+tests\test_m3_focus.py ..                                                [ 42%]
+tests\test_m3_permissions.py ....                                        [ 44%]
+tests\test_m3_readonly_ai.py ............                                [ 48%]
+tests\test_m3_requirement_append.py .......                              [ 51%]
+tests\test_m3_store.py ...                                               [ 52%]
+tests\test_m3_task_map.py ..........                                     [ 56%]
+tests\test_m3_traceability.py .........                                  [ 60%]
+tests\test_m3_transport_schema.py .................                      [ 66%]
+tests\test_m3_workflow.py .......                                        [ 69%]
+tests\test_migration_integration.py .....                                [ 71%]
+tests\test_sample_execution.py .....                                     [ 73%]
+tests\test_spec_regressions.py ......................................... [ 88%]
+.............................                                            [100%]
+
+======================= 260 passed in 494.23s (0:08:14) =======================

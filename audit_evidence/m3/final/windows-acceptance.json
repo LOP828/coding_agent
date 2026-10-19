@@ -1,0 +1,18 @@
+{
+  "command": "python -m pytest",
+  "exit_code": 0,
+  "collected": 260,
+  "passed": 260,
+  "failed": 0,
+  "skipped": 0,
+  "errors": 0,
+  "system": "Windows",
+  "python": "3.13.7",
+  "executable": "D:\\project\\coding_agent\\.venv-windows\\Scripts\\python.exe",
+  "locale_encoding": "cp936",
+  "utf8_mode": 0,
+  "PYTHONUTF8": null,
+  "pytest": "9.0.2",
+  "jsonschema": "4.26.0",
+  "skip_reasons": []
+}

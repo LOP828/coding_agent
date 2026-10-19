@@ -1,0 +1,63 @@
+{
+  "counting_unit": "AI_BACKED_CODEX_EXEC_INVOCATION",
+  "used": 4,
+  "limit": 5,
+  "unused": 1,
+  "unused_will_not_be_used": true,
+  "automatic_retries": 0,
+  "calls": [
+    {
+      "number": 1,
+      "model": "gpt-6-sol",
+      "reasoning": "medium",
+      "request_sha256": "8ab9ba84df8974c227f5de83580973a81737c46667129e3009cbda79e7917997",
+      "exit_code": 1,
+      "result": "API_REJECTED_NO_PROPOSAL",
+      "requirements": [
+        "R-003"
+      ],
+      "question_count": null,
+      "evidence": "audit_evidence/m3/planning-01"
+    },
+    {
+      "number": 2,
+      "model": "gpt-6-sol",
+      "reasoning": "medium",
+      "request_sha256": "570ac3b665b46652fa28d4facfe716dd3832871d06eeab4b8fa5424bb70cfdb6",
+      "exit_code": 0,
+      "result": "REJECTED_BY_MK",
+      "requirements": [
+        "R-003"
+      ],
+      "question_count": 0,
+      "evidence": "audit_evidence/m3/planning-02"
+    },
+    {
+      "number": 3,
+      "model": "gpt-6-sol",
+      "reasoning": "medium",
+      "request_sha256": "55e463c52689f943d99956faf3ef47b9578e99ec330d1c0b6df99f341c589fd8",
+      "exit_code": 0,
+      "result": "REJECTED_BY_MK",
+      "requirements": [
+        "R-003"
+      ],
+      "question_count": 2,
+      "evidence": "audit_evidence/m3/planning-03"
+    },
+    {
+      "number": 4,
+      "model": "gpt-6-sol",
+      "reasoning": "medium",
+      "request_sha256": "9b0946450cfbdcbbe02a2fdc1c8aac325063a78967ab023dafa98a4e447f7ab2",
+      "exit_code": 0,
+      "result": "APPROVED_BY_MK",
+      "requirements": [
+        "R-003",
+        "R-004"
+      ],
+      "question_count": 0,
+      "evidence": "audit_evidence/m3/planning-04"
+    }
+  ]
+}
