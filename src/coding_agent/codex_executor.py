@@ -35,23 +35,34 @@ def configuration_identity(repository: Path):
                 json.dumps(environment, sort_keys=True).encode("utf-8")).hexdigest()}
 
 
-def policy_template():
-    return {"profile": PROFILE, "filesystem": {
+def policy_template(protected_resources=()):
+    result = {"profile": PROFILE, "filesystem": {
         ":root": "read", "$REPOSITORY": "write",
         "$REPOSITORY/project_config.py": "read", "$REPOSITORY/protected": "read",
         "$CONTROLLER": "none", "$EVIDENCE": "none",
     }, "network": False}
+    for index, _ in enumerate(protected_resources):
+        result["filesystem"][f"$PROTECTED_{index}"] = "none"
+    return result
 
 
-def sandbox_overrides(repository: Path, controller: Path, evidence: Path) -> list[str]:
+def sandbox_overrides(repository: Path, controller: Path, evidence: Path, protected_resources=()) -> list[str]:
     substitutions = {"$REPOSITORY": repository.resolve().as_posix(),
                      "$CONTROLLER": controller.resolve().as_posix(),
                      "$EVIDENCE": evidence.resolve().as_posix()}
+    substitutions.update({f"$PROTECTED_{i}": Path(p).resolve().as_posix() for i, p in enumerate(protected_resources)})
     filesystem = {}
-    for key, access in policy_template()["filesystem"].items():
+    for key, access in policy_template(protected_resources)["filesystem"].items():
         for placeholder, path in substitutions.items():
             key = key.replace(placeholder, path)
         filesystem[key] = access
+    # An ancestor denial already covers its descendants. Duplicate nested none mounts
+    # fail at sandbox startup on this backend; preserve the stronger ancestor boundary.
+    for path, access in list(filesystem.items()):
+        if access == "none" and not path.startswith(":") and any(
+                other != path and mode == "none" and not other.startswith(":")
+                and Path(path).is_relative_to(Path(other)) for other, mode in filesystem.items()):
+            del filesystem[path]
     table = "{" + ",".join(json.dumps(k, ensure_ascii=False) + "=" + json.dumps(v)
                            for k, v in filesystem.items()) + "}"
     values = [f'default_permissions="{PROFILE}"',
@@ -106,7 +117,7 @@ class CallLedger:
 class CodexExecutor:
     def __init__(self, *, evidence: Path, controller: Path, proof: Path, ledger: CallLedger,
                  prompt: str, model="gpt-6-luna", reasoning="medium", timeout=300,
-                 cli=("codex", "--no-daemon")):
+                 cli=("codex", "--no-daemon"), protected_resources=(), output_schema: Path | None = None):
         if model not in MODELS or reasoning not in ("low", "medium", "high", "xhigh", "max") or timeout <= 0:
             raise PolicyError("INVALID_EXECUTOR_CONFIGURATION")
         if any("bypass" in arg or "danger-full-access" in arg for arg in cli):
@@ -115,6 +126,9 @@ class CodexExecutor:
         self.ledger, self.prompt = ledger, prompt
         self.model, self.reasoning, self.timeout, self.cli = model, reasoning, timeout, tuple(cli)
         self.last_result = None
+        self.protected_resources = tuple(Path(p).resolve() for p in protected_resources)
+        self.output_schema = output_schema
+        self.findings_message = None
 
     def preview(self, repository: Path):
         repository = repository.resolve()
@@ -123,7 +137,7 @@ class CodexExecutor:
         if self.evidence.is_relative_to(repository):
             raise PolicyError("EXECUTOR_EVIDENCE_INSIDE_CANDIDATE")
         proof = json.loads(self.proof.read_text(encoding="utf-8"))
-        if (proof.get("policy_template") != policy_template() or proof.get("platform") != platform.system()
+        if (proof.get("policy_template") != policy_template(self.protected_resources) or proof.get("platform") != platform.system()
                 or not proof.get("usable_for_executor") or not proof.get("matrix_complete")):
             raise PolicyError("SANDBOX_CONFIGURATION_NOT_VERIFIED")
         identity = configuration_identity(repository)
@@ -132,11 +146,14 @@ class CodexExecutor:
         command = [*self.cli, "exec", "--ephemeral",
                    "-C", str(repository), "-m", self.model,
                    "-c", f'model_reasoning_effort="{self.reasoning}"',
-                   *sandbox_overrides(repository, self.controller, self.evidence.parent),
+                   *sandbox_overrides(repository, self.controller, self.evidence.parent, self.protected_resources),
                    "--json", "--color", "never", "-"]
+        if self.output_schema is not None:
+            command[3:3] = ["--output-schema", str(self.output_schema.resolve()),
+                            "--output-last-message", str(self.evidence / "final-message.json")]
         return {"command": command, "cwd": repository.as_posix(), "prompt": self.prompt,
                 "model": self.model, "reasoning": self.reasoning, "timeout_seconds": self.timeout,
-                "policy_template": policy_template(), "proof": self.proof.resolve().as_posix(),
+                "policy_template": policy_template(self.protected_resources), "proof": self.proof.resolve().as_posix(),
                 "configuration_identity": identity,
                 "proof_sha256": hashlib.sha256(self.proof.read_bytes()).hexdigest(),
                 "tested_codex_version": proof["codex_version"]}
@@ -160,5 +177,7 @@ class CodexExecutor:
         self.last_result = {**result, "version": version, "call_number": number}
         self.ledger.finish(number, self.last_result)
         write_json(self.evidence / "execution.json", self.last_result)
+        if self.output_schema is not None and (self.evidence / "final-message.json").is_file():
+            self.findings_message = (self.evidence / "final-message.json").read_bytes()
         if result["timed_out"] or result["exit_code"] != 0:
             raise PolicyError("CODEX_TIMEOUT" if result["timed_out"] else "CODEX_NONZERO_EXIT")

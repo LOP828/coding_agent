@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "m3.1"
+    },
+    "base_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+          },
+          "parent_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "STAGE",
+              "ATOMIC"
+            ]
+          },
+          "requirement_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^R-[0-9]{3,}$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "origin": {
+            "enum": [
+              "EXPLICIT",
+              "DERIVED",
+              "UNSOURCED"
+            ]
+          },
+          "derivation_reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "parent_id",
+          "title",
+          "type",
+          "requirement_refs",
+          "origin",
+          "derivation_reason"
+        ]
+      }
+    },
+    "atomic_task_drafts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requirement_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^R-[0-9]{3,}$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "origin": {
+            "enum": [
+              "EXPLICIT",
+              "DERIVED",
+              "UNSOURCED"
+            ]
+          },
+          "derivation_reason": {
+            "type": "string"
+          },
+          "allowed_change_paths": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "statement": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "requirement_refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^R-[0-9]{3,}$"
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                },
+                "origin": {
+                  "enum": [
+                    "EXPLICIT",
+                    "DERIVED",
+                    "UNSOURCED"
+                  ]
+                },
+                "derivation_reason": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statement",
+                "requirement_refs",
+                "origin",
+                "derivation_reason"
+              ]
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "node_id",
+          "title",
+          "requirement_refs",
+          "origin",
+          "derivation_reason",
+          "allowed_change_paths",
+          "properties"
+        ]
+      }
+    },
+    "questions_for_mk": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requirement_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^R-[0-9]{3,}$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "question",
+          "requirement_refs"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "base_revision",
+    "nodes",
+    "atomic_task_drafts",
+    "questions_for_mk"
+  ]
+}

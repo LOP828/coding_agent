@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "basis": {
+      "type": "string",
+      "minLength": 1
+    },
+    "accepted": {
+      "type": "boolean"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "before": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "after": {
+      "type": "object"
+    },
+    "previous_sha256": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "sequence",
+    "actor",
+    "timestamp",
+    "operation",
+    "basis",
+    "accepted",
+    "reason",
+    "before",
+    "after",
+    "previous_sha256",
+    "sha256"
+  ]
+}

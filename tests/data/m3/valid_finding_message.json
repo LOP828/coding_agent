@@ -1,0 +1,12 @@
+{
+  "schema_version": "m3.1",
+  "source_node_id": "first",
+  "findings": [
+    {
+      "content": "测试发现记录，等待 MK 决定。",
+      "evidence_refs": [
+        "executor-final-message"
+      ]
+    }
+  ]
+}

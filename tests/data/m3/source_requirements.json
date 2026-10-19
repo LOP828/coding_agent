@@ -1,0 +1,14 @@
+{
+  "schema_version": "m0.2",
+  "requirements": [
+    {
+      "id": "R-003",
+      "raw_text": "配置校验需要再加两条规则：provider 只能是 openai 或 local；如果配置里有 timeout，必须是正整数，否则抛出 InvalidConfigError。",
+      "source_ref": "git:38df9db7677b9c0854452c126ab8c94efaa5c260:docs/M3/Coding_Agent_M3_Codex_Task.md#八.4;MK-confirmed-user-message",
+      "source_kind": "USER_MESSAGE",
+      "confirmation": "USER_CONFIRMED",
+      "status": "FROZEN",
+      "sha256_utf8": "5007ee5cd6c75bf10dd9ff04710fee55d43fce9589ddc56a86a385232d79912e"
+    }
+  ]
+}

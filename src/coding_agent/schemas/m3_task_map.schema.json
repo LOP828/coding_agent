@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "m3.1"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_sha256": {
+      "type": "string",
+      "minLength": 1
+    },
+    "focus": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "active_run": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "node_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "run_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "task_sha256": {
+              "type": "string",
+              "minLength": 1
+            },
+            "stop_target": {
+              "enum": [
+                null,
+                "BLOCKED",
+                "DEFERRED"
+              ]
+            }
+          },
+          "required": [
+            "node_id",
+            "run_id",
+            "task_sha256",
+            "stop_target"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+          },
+          "parent_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "STAGE",
+              "ATOMIC"
+            ]
+          },
+          "requirement_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^R-[0-9]{3,}$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "origin": {
+            "enum": [
+              "EXPLICIT",
+              "DERIVED",
+              "UNSOURCED"
+            ]
+          },
+          "derivation_reason": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "PENDING",
+              "READY",
+              "RUNNING",
+              "DONE",
+              "BLOCKED",
+              "DEFERRED"
+            ]
+          },
+          "created_by": {
+            "enum": [
+              "MK",
+              "AI_APPROVED_BY_MK"
+            ]
+          },
+          "approval_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "deferred_by": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "parent_id",
+          "title",
+          "type",
+          "requirement_refs",
+          "origin",
+          "derivation_reason",
+          "status",
+          "created_by",
+          "approval_ref",
+          "deferred_by"
+        ]
+      }
+    },
+    "deferred_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision_ref": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "requirement_id",
+          "decision_ref"
+        ]
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "revision",
+    "goal",
+    "source_sha256",
+    "focus",
+    "active_run",
+    "nodes",
+    "deferred_requirements"
+  ]
+}

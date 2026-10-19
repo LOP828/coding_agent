@@ -1,0 +1,11 @@
+{
+  "id": "stage",
+  "parent_id": null,
+  "title": "配置校验扩展",
+  "type": "STAGE",
+  "requirement_refs": [
+    "R-003"
+  ],
+  "origin": "EXPLICIT",
+  "derivation_reason": ""
+}

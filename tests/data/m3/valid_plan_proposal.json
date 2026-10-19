@@ -1,0 +1,75 @@
+{
+  "schema_version": "m3.1",
+  "base_revision": 1,
+  "nodes": [
+    {
+      "id": "provider",
+      "parent_id": "stage",
+      "title": "provider 校验",
+      "type": "ATOMIC",
+      "requirement_refs": [
+        "R-003"
+      ],
+      "origin": "EXPLICIT",
+      "derivation_reason": ""
+    },
+    {
+      "id": "timeout",
+      "parent_id": "stage",
+      "title": "timeout 校验",
+      "type": "ATOMIC",
+      "requirement_refs": [
+        "R-003"
+      ],
+      "origin": "EXPLICIT",
+      "derivation_reason": ""
+    }
+  ],
+  "atomic_task_drafts": [
+    {
+      "node_id": "provider",
+      "title": "provider 校验",
+      "requirement_refs": [
+        "R-003"
+      ],
+      "origin": "EXPLICIT",
+      "derivation_reason": "",
+      "allowed_change_paths": [
+        "config_loader.py"
+      ],
+      "properties": [
+        {
+          "statement": "provider 校验",
+          "requirement_refs": [
+            "R-003"
+          ],
+          "origin": "EXPLICIT",
+          "derivation_reason": ""
+        }
+      ]
+    },
+    {
+      "node_id": "timeout",
+      "title": "timeout 校验",
+      "requirement_refs": [
+        "R-003"
+      ],
+      "origin": "EXPLICIT",
+      "derivation_reason": "",
+      "allowed_change_paths": [
+        "config_loader.py"
+      ],
+      "properties": [
+        {
+          "statement": "timeout 校验",
+          "requirement_refs": [
+            "R-003"
+          ],
+          "origin": "EXPLICIT",
+          "derivation_reason": ""
+        }
+      ]
+    }
+  ],
+  "questions_for_mk": []
+}

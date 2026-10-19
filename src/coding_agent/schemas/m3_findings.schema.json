@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "schema_version": {
+        "const": "m3.1"
+      },
+      "finding_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+      },
+      "source_node_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+      },
+      "source_run_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+      },
+      "content": {
+        "type": "string",
+        "minLength": 1
+      },
+      "submitted_by": {
+        "enum": [
+          "EXECUTOR",
+          "PLANNER",
+          "MK"
+        ]
+      },
+      "evidence_refs": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 1
+      },
+      "raw_submission_sha256": {
+        "type": "string",
+        "minLength": 1
+      },
+      "status": {
+        "enum": [
+          "OPEN",
+          "PROMOTED",
+          "DELETED"
+        ]
+      },
+      "decision_ref": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "promoted_node_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "schema_version",
+      "finding_id",
+      "source_node_id",
+      "source_run_id",
+      "content",
+      "submitted_by",
+      "evidence_refs",
+      "raw_submission_sha256",
+      "status",
+      "decision_ref",
+      "promoted_node_id"
+    ]
+  }
+}
