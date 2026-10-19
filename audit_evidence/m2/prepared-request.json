@@ -1,0 +1,193 @@
+{
+  "session": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33",
+  "repository": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1",
+  "fixture_root": "/mnt/d/project/coding_agent/tests/data/m2",
+  "controller": "/mnt/d/project/coding_agent",
+  "proof": "/mnt/d/project/coding_agent_m2_runs/sandbox-8718190fae3a/evidence/sandbox-proof.json",
+  "evidence": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence",
+  "ledger": "/mnt/d/project/coding_agent_m2_runs/model-call-ledger.json",
+  "model": "gpt-6-luna",
+  "reasoning": "medium",
+  "timeout_seconds": 300.0,
+  "baseline": {
+    "revision": "308a9a644c2503e6655bccfb2acbedca58b0a41a",
+    "files": {
+      ".": [
+        "directory"
+      ],
+      "config_loader.py": [
+        "file",
+        "2d24e92eac1af39d84a7e4841082889de36929a8b83e0874d74ab7d4f1be5046",
+        true
+      ],
+      "project_config.py": [
+        "file",
+        "defaf6652c7d175fe639c1e4a9de93692e28a1e9cb2643a9fd18dcc5ad4867da",
+        true
+      ],
+      "protected": [
+        "directory"
+      ],
+      "protected/sentinel.txt": [
+        "file",
+        "40a180c59a92703d087ff5af8e46bd162229771affd468dab4ed51f3cccbc82c",
+        true
+      ]
+    },
+    "git_metadata": {
+      "config": {
+        ".": [
+          "file",
+          "42ec26d8b2c8e940434d4665ebdb624526f8e56e64511aa5c0e4371a1d5d0dd4",
+          true
+        ]
+      },
+      "config.worktree": {},
+      "hooks": {
+        ".": [
+          "directory"
+        ],
+        "applypatch-msg.sample": [
+          "file",
+          "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7",
+          true
+        ],
+        "commit-msg.sample": [
+          "file",
+          "1f74d5e9292979b573ebd59741d46cb93ff391acdd083d340b94370753d92437",
+          true
+        ],
+        "fsmonitor-watchman.sample": [
+          "file",
+          "e0549964e93897b519bd8e333c037e51fff0f88ba13e086a331592bf801fa1d0",
+          true
+        ],
+        "post-update.sample": [
+          "file",
+          "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5",
+          true
+        ],
+        "pre-applypatch.sample": [
+          "file",
+          "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475",
+          true
+        ],
+        "pre-commit.sample": [
+          "file",
+          "f9af7d95eb1231ecf2eba9770fedfa8d4797a12b02d7240e98d568201251244a",
+          true
+        ],
+        "pre-merge-commit.sample": [
+          "file",
+          "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53",
+          true
+        ],
+        "pre-push.sample": [
+          "file",
+          "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a",
+          true
+        ],
+        "pre-rebase.sample": [
+          "file",
+          "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3",
+          true
+        ],
+        "pre-receive.sample": [
+          "file",
+          "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989",
+          true
+        ],
+        "prepare-commit-msg.sample": [
+          "file",
+          "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619",
+          true
+        ],
+        "push-to-checkout.sample": [
+          "file",
+          "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f",
+          true
+        ],
+        "sendemail-validate.sample": [
+          "file",
+          "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92",
+          true
+        ],
+        "update.sample": [
+          "file",
+          "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106",
+          true
+        ]
+      },
+      "info": {
+        ".": [
+          "directory"
+        ],
+        "exclude": [
+          "file",
+          "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1",
+          true
+        ]
+      }
+    },
+    "excluded_evidence_directories": [
+      ".coding-agent-evidence"
+    ],
+    "git_metadata_handled_separately": [
+      ".git"
+    ]
+  },
+  "task_sha256": "34f7fcb15d55e019290ab15bf36d0975bca4a909aa96044452ff00b1bbeea86b",
+  "executor_request": {
+    "command": [
+      "codex",
+      "--no-daemon",
+      "exec",
+      "--ephemeral",
+      "-C",
+      "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1",
+      "-m",
+      "gpt-6-luna",
+      "-c",
+      "model_reasoning_effort=\"medium\"",
+      "-c",
+      "default_permissions=\"m2_provider\"",
+      "-c",
+      "permissions.m2_provider.filesystem={\":root\"=\"read\",\"/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1\"=\"write\",\"/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1/project_config.py\"=\"read\",\"/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1/protected\"=\"read\",\"/mnt/d/project/coding_agent\"=\"none\",\"/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence\"=\"none\"}",
+      "-c",
+      "permissions.m2_provider.network.enabled=false",
+      "-c",
+      "approval_policy=\"never\"",
+      "--json",
+      "--color",
+      "never",
+      "-"
+    ],
+    "cwd": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1",
+    "prompt": "在当前一次性 Python 演示仓库中实现以下任务。\n项目接口：config_loader.py 提供 MissingProviderError 和 validate_config(config)。config 为 JSON 对象；已有 provider 的配置保持原值。只使用现有依赖。\n要求：\n- 缺少 provider 时抛出 MissingProviderError，不得默认填充。\n允许修改的路径：\n- config_loader.py\n仅修改允许的文件；不要修改 Git 元数据，不要提交或访问其他项目。完成后简要说明实际改动。\n",
+    "model": "gpt-6-luna",
+    "reasoning": "medium",
+    "timeout_seconds": 300.0,
+    "policy_template": {
+      "profile": "m2_provider",
+      "filesystem": {
+        ":root": "read",
+        "$REPOSITORY": "write",
+        "$REPOSITORY/project_config.py": "read",
+        "$REPOSITORY/protected": "read",
+        "$CONTROLLER": "none",
+        "$EVIDENCE": "none"
+      },
+      "network": false
+    },
+    "proof": "/mnt/d/project/coding_agent_m2_runs/sandbox-8718190fae3a/evidence/sandbox-proof.json",
+    "configuration_identity": {
+      "loading": "ambient_with_explicit_overrides",
+      "files_sha256": {
+        "/home/lan/.codex/config.toml": "567cabf40f957a6c45621e56748b7cb3068048af4035da2ecda5d12456935dc6"
+      },
+      "configuration_environment_sha256": "5c07b0ef0d3f95454c799652132a0aefc1d1cb6c8af046d37e8a3fc31a916da7"
+    },
+    "proof_sha256": "83d5eea95430269556b067e29805a43b18a5623f657c93a9084ec7dee5465500",
+    "tested_codex_version": "codex-cli 0.163.0"
+  }
+}

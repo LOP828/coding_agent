@@ -1,0 +1,291 @@
+{
+  "codex_version": "codex-cli 0.163.0",
+  "expected_version": "codex-cli 0.163.0",
+  "platform": "Linux",
+  "policy_template": {
+    "profile": "m2_provider",
+    "filesystem": {
+      ":root": "read",
+      "$REPOSITORY": "write",
+      "$REPOSITORY/project_config.py": "read",
+      "$REPOSITORY/protected": "read",
+      "$CONTROLLER": "none",
+      "$EVIDENCE": "none"
+    },
+    "network": false
+  },
+  "configuration_identity": {
+    "loading": "ambient_with_explicit_overrides",
+    "files_sha256": {
+      "/home/lan/.codex/config.toml": "567cabf40f957a6c45621e56748b7cb3068048af4035da2ecda5d12456935dc6"
+    },
+    "configuration_environment_sha256": "5c07b0ef0d3f95454c799652132a0aefc1d1cb6c8af046d37e8a3fc31a916da7"
+  },
+  "matrix_complete": true,
+  "usable_for_executor": true,
+  "strict_allowlist_enforced": false,
+  "model_calls": 0,
+  "evidence": "/mnt/d/project/coding_agent_m2_runs/sandbox-8718190fae3a/evidence",
+  "rows": [
+    {
+      "mode": "named",
+      "case": "allowed_write",
+      "classification": "允许路径写入成功（正向对照）",
+      "changed_paths": [
+        "config_loader.py"
+      ],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "protected_write",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "allowed_new",
+      "classification": "允许路径写入成功（正向对照）",
+      "changed_paths": [
+        "allowed/new.txt"
+      ],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "protected_new",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "undeclared_new",
+      "classification": "沙箱未阻止、仅 M1 事后检测",
+      "changed_paths": [
+        "undeclared.py"
+      ],
+      "m1_scope_violations": [
+        "undeclared.py"
+      ]
+    },
+    {
+      "mode": "named",
+      "case": "allowed_rename",
+      "classification": "允许路径写入成功（正向对照）",
+      "changed_paths": [
+        "allowed/existing.txt",
+        "allowed/moved.txt"
+      ],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "rename_to_protected",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "rename_from_protected",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "replace_protected_file",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "move_to_protected",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "move_from_protected",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [
+        "allowed/moved.txt"
+      ],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "link_allowed",
+      "classification": "允许路径写入成功（正向对照）",
+      "changed_paths": [
+        "allowed/existing.txt",
+        "allowed/link.txt"
+      ],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "link_protected",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [
+        "allowed/link.txt"
+      ],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "link_new_protected",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [
+        "allowed/link.txt"
+      ],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "create_link_protected",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "child_allowed",
+      "classification": "允许路径写入成功（正向对照）",
+      "changed_paths": [
+        "config_loader.py"
+      ],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "named",
+      "case": "child_protected",
+      "classification": "沙箱直接阻止",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "allowed_write",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "protected_write",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "allowed_new",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "protected_new",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "undeclared_new",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "allowed_rename",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "rename_to_protected",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "rename_from_protected",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "replace_protected_file",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "move_to_protected",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "move_from_protected",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "link_allowed",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "link_protected",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "link_new_protected",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "create_link_protected",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "child_allowed",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    },
+    {
+      "mode": "workspace",
+      "case": "child_protected",
+      "classification": "未证实/受阻",
+      "changed_paths": [],
+      "m1_scope_violations": []
+    }
+  ]
+}
