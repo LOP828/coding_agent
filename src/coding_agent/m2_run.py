@@ -71,7 +71,7 @@ def run_attempts(task, controller, repository_factory, executor_factory, evidenc
               "attempts": attempts, "evidence": evidence.as_posix(),
               "mk_decision": None if attempts[-1]["result_category"] == "NONE" else
               "请 MK 根据证据决定修订任务或后续处理；本次已停止，不自动重规划。",
-              "cnc_task": "NOT_STARTED_PENDING_MK_PROPERTY_AND_PATHS"}
+              "cnc_task": "CANCELLED_BY_MK_NOT_EXECUTED"}
     write_json(evidence / "workflow.json", result)
     return result
 
