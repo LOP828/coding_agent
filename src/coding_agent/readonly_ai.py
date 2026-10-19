@@ -14,6 +14,7 @@ from .workspace import snapshot
 
 PROFILE = 'm3_readonly'
 SCHEMA = Path(__file__).with_name('schemas') / 'm3_plan_proposal.schema.json'
+OUTPUT_SCHEMA = SCHEMA.with_name('m3_plan_proposal_api.schema.json')
 
 
 def runtime_roots():
@@ -80,13 +81,14 @@ class ReadOnlyAI:
         args = ['codex', '--no-daemon', 'exec', '--ephemeral', '-C', str(self.project),
                 '-m', self.model, '-c', f'model_reasoning_effort="{self.reasoning}"',
                 *readonly_overrides(self.project, self.controller, self.state),
-                '--output-schema', str(SCHEMA), '--output-last-message', str(self.raw_output),
+                '--output-schema', str(OUTPUT_SCHEMA), '--output-last-message', str(self.raw_output),
                 '--json', '--color', 'never', '-']
         return {'command': args, 'cwd': str(self.project), 'prompt': prompt, 'role': self.role,
                 'model': self.model, 'reasoning': self.reasoning, 'timeout_seconds': self.timeout,
                 'configuration_identity': identity, 'policy_template': policy_template(),
                 'proof_sha256': hashlib.sha256(self.proof.read_bytes()).hexdigest(),
-                'schema_sha256': hashlib.sha256(SCHEMA.read_bytes()).hexdigest(),
+                'schema_sha256': hashlib.sha256(OUTPUT_SCHEMA.read_bytes()).hexdigest(),
+                'full_schema_sha256': hashlib.sha256(SCHEMA.read_bytes()).hexdigest(),
                 'tested_codex_version': proof['codex_version']}
 
     def execute_approved(self, request, approved_sha256):
@@ -94,18 +96,22 @@ class ReadOnlyAI:
             raise PolicyError('READONLY_REQUEST_NOT_APPROVED_OR_CHANGED')
         if (self.evidence / 'execution.json').exists():
             raise PolicyError('REQUEST_ALREADY_EXECUTED')
+        if self.raw_output.exists():
+            raise PolicyError('RAW_PROPOSAL_ALREADY_EXISTS')
         version = subprocess.run(['codex', '--version'], capture_output=True, check=True, timeout=30).stdout.decode('utf-8').strip()
         if version != request['tested_codex_version']:
             raise PolicyError('CODEX_VERSION_DIFFERS_FROM_PROBE')
         ledger = CallLedger(self.state / 'runs/planning-call-ledger.json', limit=5)
         before = snapshot(self.project)
         # The CLI writes only raw artifacts outside controller-owned state.
-        self.raw_output.parent.mkdir(parents=True, exist_ok=False)
+        self.raw_output.parent.mkdir(parents=True, exist_ok=True)
         write_json(self.evidence / 'request.json', request)
         number = ledger.reserve(request)
         try:
+            capture_dir = self.raw_output.parent / f'call-{number:02d}'
+            capture_dir.mkdir(exist_ok=False)
             result = run_captured(request['command'], cwd=self.project, env=clean_environment(),
-                                  evidence=self.raw_output.parent, prefix='planner', timeout=self.timeout,
+                                  evidence=capture_dir, prefix='planner', timeout=self.timeout,
                                   stdin=request['prompt'].encode('utf-8'))
         except Exception as error:
             failed = {'launch_error': type(error).__name__, 'call_number': number}

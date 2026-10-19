@@ -47,3 +47,8 @@ MK 删除发现采用墓碑记录，原文和历史保留；提升创建 PENDING
 真实规划最多五次，每次调用前单独确认完整请求。准备请求、测试和沙箱探测均不调用模型。
 规划 CLI 的提案、stdout 和 stderr 写入状态目录之外的原始输出目录；控制层校验提案后才将其登记为 PENDING_MK，状态目录仅由控制层写入。校验失败时原文仍保留在外部目录，不批准入图。
 规划提示词明确允许只读查看当前工作目录中的项目代码，以确定接口和允许修改的路径。
+
+接口 Schema 为 `m3_plan_proposal_api.schema.json`，仅供 `--output-schema` 使用；控制层解析、登记和批准仍使用原始 `m3_plan_proposal.schema.json`，全部规则保持不变。
+依据 [OpenAI Structured Outputs 官方文档](https://developers.openai.com/api/docs/guides/structured-outputs)（2026-10-19 核对），接口副本去掉 `uniqueItems`（5 处）和 `minLength`（5 处）。`uniqueItems` 未列入文档支持的数组约束，且首次真实调用已明确拒绝；`minLength` 未列入文档支持的字符串约束，接口保守省略，不声称已实测非微调模型必然拒绝该关键字。保留文档支持的 `pattern`、`minimum`、`minItems`，以及既有类型、必填字段和对象字段限制。
+全部移除位置记录在 `audit_evidence/m3/planning-02/schema-removals.json`。接口副本仅删掉正向约束；测试核对两份 Schema 的精确关系、完整 Schema 合法样例在接口 Schema 下仍合法，以及每处被移除约束在控制层仍能拒绝反例。
+每次已授权调用分别记录请求与执行结果；若前次未产生提案，可以沿用原始提案输出路径，stdout/stderr 按调用编号分目录保留。已有提案文件拒绝覆盖，不自动重试。

@@ -122,11 +122,12 @@ def execute(prepared_path, approved_sha256):
     ai=ReadOnlyAI(project=p['project'],controller=p['controller'],state=p['state'],evidence=p['evidence'],proof=p['proof'],raw_output=p['raw_output'])
     raw=ai.execute_approved(p['request'],approved_sha256)
     controller=MapController(store,p['controller'])
+    run_id=p.get('run_id','planning-01')
     try:
         # Validate external raw output before storing any proposal in state.
         proposal=parse_message(raw,'m3_plan_proposal')
         validate_proposal(proposal,store.read()['map'],store.source,fixture_mode=store.fixture_mode)
-        result=controller.submit_proposal(raw,proposal_id='planning-01',run_id='planning-01')
+        result=controller.submit_proposal(raw,proposal_id=run_id,run_id=run_id)
         status='PENDING_MK'
     except Exception as error:
         status='REJECTED: '+str(error);result=store.read()

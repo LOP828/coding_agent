@@ -1,0 +1,17 @@
+{
+  "basis": "MK: 按以下方式修复后，可直接执行第 2 次调用，无需再等我确认。提示词和其他调用参数不变；重新计算请求摘要并记入证据。第 2 次调用若仍失败，立即停止报告，不再继续尝试。",
+  "approved_request_sha256": "570ac3b665b46652fa28d4facfe716dd3832871d06eeab4b8fa5424bb70cfdb6",
+  "previous_request_sha256": "8ab9ba84df8974c227f5de83580973a81737c46667129e3009cbda79e7917997",
+  "only_cli_change": "--output-schema now points to /mnt/d/project/coding_agent/src/coding_agent/schemas/m3_plan_proposal_api.schema.json",
+  "prompt_identical": true,
+  "other_cli_arguments_identical": true,
+  "request_metadata_changes": [
+    "schema_sha256: API schema digest",
+    "full_schema_sha256: unchanged controller schema digest"
+  ],
+  "controller_evidence_directory": "/mnt/d/project/coding_agent_m3_state/provider-validation/runs/planning-02",
+  "model_calls_before": 1,
+  "authorized_additional_calls": 1,
+  "automatic_retry": false,
+  "approve_into_map": false
+}

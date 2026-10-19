@@ -1,0 +1,24 @@
+{
+  "scope": [
+    "tests/test_m3_transport_schema.py",
+    "tests/test_m3_readonly_ai.py"
+  ],
+  "linux": {
+    "passed": 29,
+    "failed": 0,
+    "seconds": 12.35
+  },
+  "windows": {
+    "passed": 29,
+    "failed": 0,
+    "seconds": 3.92,
+    "PYTHONUTF8": null
+  },
+  "checks": [
+    "API schema is exactly full schema with 10 positive constraints removed",
+    "6 full-valid examples are API-valid",
+    "all 10 removed constraints still rejected by full-schema controller",
+    "second authorized call preserves first failure logs",
+    "existing proposal cannot be overwritten"
+  ]
+}

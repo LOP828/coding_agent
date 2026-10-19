@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from coding_agent.m0 import PolicyError,read_json
 from coding_agent.codex_executor import configuration_identity
-from coding_agent.readonly_ai import ReadOnlyAI,planning_prompt,policy_template
+from coding_agent.readonly_ai import ReadOnlyAI,planning_prompt,policy_template,OUTPUT_SCHEMA
 from coding_agent.verification import write_json
 from coding_agent.task_map import digest
 from coding_agent.workspace import snapshot
@@ -26,6 +26,7 @@ def test_all_ai_roles_construct_only_readonly_config(tmp_path,monkeypatch,role):
     assert 'write' not in r['policy_template']['filesystem'].values()
     assert r['model']=='gpt-6-sol' and r['reasoning']=='medium'
     assert '--output-schema' in r['command']
+    assert r['command'][r['command'].index('--output-schema')+1]==str(OUTPUT_SCHEMA)
     assert r['command'][r['command'].index('--output-last-message')+1]==str(ai.raw_output)
     assert not ai.raw_output.is_relative_to(ai.state)
     assert not any('bypass' in a or 'danger-full-access' in a or 'workspace-write' in a for a in r['command'])
@@ -64,7 +65,7 @@ def test_cli_output_and_logs_are_external_and_request_cannot_replay(tmp_path,mon
     calls=[]
     def captured(command,**kwargs):
         calls.append(command)
-        assert kwargs['evidence']==ai.raw_output.parent
+        assert kwargs['evidence']==ai.raw_output.parent/'call-01'
         assert not kwargs['evidence'].is_relative_to(ai.state)
         ai.raw_output.write_bytes(b'{"raw":"synthetic"}')
         return {'exit_code':0,'timed_out':False}
@@ -75,6 +76,36 @@ def test_cli_output_and_logs_are_external_and_request_cannot_replay(tmp_path,mon
     with pytest.raises(PolicyError,match='ALREADY_EXECUTED'):
         ai.execute_approved(request,digest(request))
     assert len(calls)==1
+
+
+def test_authorized_second_call_preserves_first_failure_logs(tmp_path,monkeypatch):
+    from types import SimpleNamespace
+    ai=ai_setup(tmp_path,monkeypatch);ai.project.mkdir()
+    ai.raw_output.parent.mkdir()
+    old_log=ai.raw_output.parent/'planner.stdout';old_log.write_bytes(b'first API rejection')
+    write_json(ai.state/'runs/planning-call-ledger.json',{
+        'counting_unit':'AI_BACKED_CODEX_EXEC_INVOCATION',
+        'calls':[{'number':1,'state':'FINISHED','result':{'exit_code':1}}]})
+    monkeypatch.setattr('coding_agent.readonly_ai.subprocess.run',lambda *a,**k:SimpleNamespace(stdout=b'test-version'))
+    def captured(command,**kwargs):
+        assert kwargs['evidence']==ai.raw_output.parent/'call-02'
+        ai.raw_output.write_bytes(b'{}')
+        return {'exit_code':0,'timed_out':False}
+    monkeypatch.setattr('coding_agent.readonly_ai.run_captured',captured)
+    req=ai.preview('unchanged prompt')
+    assert ai.execute_approved(req,digest(req))==b'{}'
+    assert old_log.read_bytes()==b'first API rejection'
+    assert len(read_json(ai.state/'runs/planning-call-ledger.json')['calls'])==2
+
+
+def test_existing_raw_proposal_is_never_overwritten(tmp_path,monkeypatch):
+    ai=ai_setup(tmp_path,monkeypatch)
+    ai.raw_output.parent.mkdir();ai.raw_output.write_bytes(b'preserve')
+    req=ai.preview('proposal')
+    with pytest.raises(PolicyError,match='RAW_PROPOSAL_ALREADY_EXISTS'):
+        ai.execute_approved(req,digest(req))
+    assert ai.raw_output.read_bytes()==b'preserve'
+    assert not (ai.state/'runs/planning-call-ledger.json').exists()
 
 
 @pytest.mark.parametrize('valid',[True,False])

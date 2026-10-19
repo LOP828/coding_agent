@@ -1,0 +1,49 @@
+{
+  "source": "https://developers.openai.com/api/docs/guides/structured-outputs",
+  "checked_date": "2026-10-19",
+  "removed": [
+    {
+      "path": "/properties/nodes/items/properties/title/minLength",
+      "value": 1
+    },
+    {
+      "path": "/properties/nodes/items/properties/requirement_refs/uniqueItems",
+      "value": true
+    },
+    {
+      "path": "/properties/atomic_task_drafts/items/properties/title/minLength",
+      "value": 1
+    },
+    {
+      "path": "/properties/atomic_task_drafts/items/properties/requirement_refs/uniqueItems",
+      "value": true
+    },
+    {
+      "path": "/properties/atomic_task_drafts/items/properties/allowed_change_paths/items/minLength",
+      "value": 1
+    },
+    {
+      "path": "/properties/atomic_task_drafts/items/properties/allowed_change_paths/uniqueItems",
+      "value": true
+    },
+    {
+      "path": "/properties/atomic_task_drafts/items/properties/properties/items/properties/statement/minLength",
+      "value": 1
+    },
+    {
+      "path": "/properties/atomic_task_drafts/items/properties/properties/items/properties/requirement_refs/uniqueItems",
+      "value": true
+    },
+    {
+      "path": "/properties/questions_for_mk/items/properties/question/minLength",
+      "value": 1
+    },
+    {
+      "path": "/properties/questions_for_mk/items/properties/requirement_refs/uniqueItems",
+      "value": true
+    }
+  ],
+  "uniqueItems_basis": "Absent from documented supported array properties; explicitly rejected by API in planning-01.",
+  "minLength_basis": "Not listed among documented supported string properties; conservatively omitted from API schema. This is not a claim of an observed non-fine-tuned API rejection.",
+  "controller_full_schema_unchanged": true
+}
