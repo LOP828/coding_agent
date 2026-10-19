@@ -1,0 +1,14 @@
+{
+  "basis": "MK: 然后用改进后的提示词做第 3 次调用（同一冻结需求 R-003，其余参数不变）。结果照旧给我：提案原文、校验结果、questions_for_mk，不批准入图。这是第 3/5 次调用。",
+  "added_prompt_rule": "标为 EXPLICIT 的属性，其行为必须能在需求原文中直接找到对应文字。凡原文未写明、需要你补充的行为（例如使用哪种异常、边界值如何处理、类型如何界定），必须标为 DERIVED 并写明理由，或者列入 questions_for_mk；不确定时优先列入 questions_for_mk。",
+  "approved_request_sha256": "55e463c52689f943d99956faf3ef47b9578e99ec330d1c0b6df99f341c589fd8",
+  "previous_request_sha256": "570ac3b665b46652fa28d4facfe716dd3832871d06eeab4b8fa5424bb70cfdb6",
+  "only_request_change": "prompt: append exact generic MK rule",
+  "all_cli_arguments_identical": true,
+  "schemas_unchanged": true,
+  "frozen_requirement_unchanged": true,
+  "model_calls_before": 2,
+  "authorized_additional_calls": 1,
+  "automatic_retry": false,
+  "approve_into_map": false
+}

@@ -1,0 +1,17 @@
+{
+  "scope": [
+    "tests/test_m3_readonly_ai.py",
+    "tests/test_m3_traceability.py"
+  ],
+  "linux": {
+    "passed": 21,
+    "failed": 0,
+    "seconds": 13.33
+  },
+  "windows": {
+    "passed": 21,
+    "failed": 0,
+    "seconds": 4.74,
+    "PYTHONUTF8": null
+  }
+}

@@ -64,7 +64,7 @@ class MapController:
                 node['status'] = target
                 if target == 'DONE' and m['focus'] == node['id']:
                     m['focus'] = node['parent_id']
-            elif operation == 'approve_proposal':
+            elif operation in ('approve_proposal', 'reject_proposal'):
                 if m['active_run']:
                     raise PolicyError('RUN_ACTIVE')
                 record = next((p for p in state['proposals'] if p['id'] == args['proposal_id']), None)
@@ -72,6 +72,9 @@ class MapController:
                     raise PolicyError('PROPOSAL_NOT_PENDING')
                 if record['sha256'] != args['proposal_sha256']:
                     raise PolicyError('PROPOSAL_APPROVAL_HASH_MISMATCH')
+                if operation == 'reject_proposal':
+                    record.update(status='REJECTED', decision_ref=basis)
+                    return  # Preserve the proposal and raw archive; never add its nodes.
                 proposal = record['proposal']
                 validate_proposal(proposal, m, self.store.source, fixture_mode=self.store.fixture_mode)
                 if proposal['questions_for_mk']:

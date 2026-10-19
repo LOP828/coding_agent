@@ -57,3 +57,26 @@ def test_pending_real_request_is_reported_from_controller_record(tmp_path):
     store,c=setup(tmp_path)
     write_json(store.root/'runs/planning-01/prepared-request.json',{'status':'AWAITING_MK_PROMPT_AND_PARAMETER_APPROVAL'})
     assert '真实规划 planning-01：等待 MK 确认完整提示词与调用参数' in render(store)
+
+
+def test_mk_rejection_preserves_proposal_and_prevents_later_approval(tmp_path):
+    store,c=setup(tmp_path)
+    proposal=read_json(ROOT/'valid_plan_proposal.json')
+    proposal['base_revision']=store.read()['map']['revision']
+    raw=json.dumps(proposal).encode()
+    c.submit_proposal(raw,proposal_id='reviewed',run_id='synthetic')
+    before=store.read()
+    with pytest.raises(PolicyError,match='HASH_MISMATCH'):
+        c.mk('reject_proposal',basis='MK_REJECT',proposal_id='reviewed',proposal_sha256='wrong')
+    assert store.read()==before
+    c.mk('reject_proposal',basis='MK_REJECT',proposal_id='reviewed',proposal_sha256=digest(proposal),
+         expected_revision=before['map']['revision'])
+    after=store.read()
+    assert after['map']==before['map']
+    assert after['proposals'][0]['proposal']==proposal
+    assert after['proposals'][0]['status']=='REJECTED'
+    assert after['proposals'][0]['decision_ref']=='MK_REJECT'
+    assert (store.root/'raw/reviewed/message.bin').read_bytes()==raw
+    assert 'reviewed：REJECTED' in render(store)
+    with pytest.raises(PolicyError,match='NOT_PENDING'):
+        c.mk('approve_proposal',basis='LATER',proposal_id='reviewed',proposal_sha256=digest(proposal))

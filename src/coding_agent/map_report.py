@@ -20,6 +20,9 @@ def render(store):
         if request.get('status') == 'AWAITING_MK_PROMPT_AND_PARAMETER_APPROVAL' and not (path.parent / 'execution.json').exists():
             decisions.append(f'- 真实规划 {path.parent.name}：等待 MK 确认完整提示词与调用参数')
     lines += decisions or ['- 无']
+    lines += ['', 'MK 不批准的提案（原文保留）：']
+    lines += [f"- {p['id']}：{p['status']}；依据：{p['decision_ref']}"
+              for p in state['proposals'] if p['status'] == 'REJECTED'] or ['- 无']
     lines += ['', '待 MK 澄清的问题：']
     questions = [f"- 提案 {p['id']} / {','.join(q['requirement_refs'])}：{q['question']}"
                  for p in state['proposals'] if p['status'] == 'PENDING_MK' for q in p['proposal']['questions_for_mk']]

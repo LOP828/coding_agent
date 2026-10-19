@@ -51,6 +51,7 @@ def planning_prompt(source, task_map):
             '被规划项目的代码位于当前工作目录，可只读查看现有文件以确定接口和允许修改的路径。\n'
             '只输出符合给定 JSON Schema 的提案；不写文件，不执行任务，不批准提案，不宣告完成。\n'
             '需求不明确时，在 questions_for_mk 列出待 MK 澄清的问题；不要自行假设并写入任务卡草稿。\n'
+            '标为 EXPLICIT 的属性，其行为必须能在需求原文中直接找到对应文字。凡原文未写明、需要你补充的行为（例如使用哪种异常、边界值如何处理、类型如何界定），必须标为 DERIVED 并写明理由，或者列入 questions_for_mk；不确定时优先列入 questions_for_mk。\n'
             '节点与草稿引用冻结需求 ID。只做提案，等待 MK 决策。\n'
             '冻结需求：\n' + json.dumps(source, ensure_ascii=False, indent=2) +
             '\n当前地图：\n' + json.dumps(task_map, ensure_ascii=False, indent=2) + '\n')

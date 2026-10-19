@@ -47,6 +47,7 @@ def test_prompt_has_only_generic_clarification_instructions(tmp_path):
     instructions=prompt.split('冻结需求：',1)[0]
     assert 'questions_for_mk' in instructions and '不要自行假设' in instructions
     assert '被规划项目的代码位于当前工作目录，可只读查看现有文件以确定接口和允许修改的路径。' in instructions
+    assert '标为 EXPLICIT 的属性，其行为必须能在需求原文中直接找到对应文字。凡原文未写明、需要你补充的行为（例如使用哪种异常、边界值如何处理、类型如何界定），必须标为 DERIVED 并写明理由，或者列入 questions_for_mk；不确定时优先列入 questions_for_mk。' in instructions
     assert 'provider' not in instructions and 'timeout' not in instructions and 'InvalidConfigError' not in instructions
     assert source['requirements'][0]['raw_text'] in prompt
 
