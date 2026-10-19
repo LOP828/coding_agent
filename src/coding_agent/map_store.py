@@ -5,9 +5,10 @@ import copy
 from datetime import datetime, timezone
 import json
 import os
+import re
 from pathlib import Path
 from .m0 import PolicyError, read_json
-from .task_map import validate_schema, digest, validate_map
+from .task_map import validate_schema, digest, validate_map, validate_sources
 
 
 class MapStore:
@@ -30,10 +31,25 @@ class MapStore:
 
     @property
     def source(self):
-        return read_json(self.root / 'requirements/source_requirements.json')
+        state = self._read()[0]
+        return self._source_for(state['map']['source_sha256'])
+
+    def _source_for(self, sha):
+        if not re.fullmatch(r'[0-9a-f]{64}', sha):
+            raise PolicyError('INVALID_SOURCE_REGISTRY_HASH')
+        original = read_json(self.root / 'requirements/source_requirements.json')
+        if digest(original) == sha:
+            return original
+        path = self.root / 'requirements/versions' / (sha + '.json')
+        if not path.is_file():
+            raise PolicyError('SOURCE_REGISTRY_VERSION_MISSING')
+        source = read_json(path)
+        if digest(source) != sha:
+            raise PolicyError('SOURCE_REGISTRY_CHANGED')
+        return source
 
     def _validate(self, state):
-        validate_map(state['map'], self.source, fixture_mode=self.fixture_mode)
+        validate_map(state['map'], self._source_for(state['map']['source_sha256']), fixture_mode=self.fixture_mode)
         validate_schema('m3_findings', state['findings'])
 
     def _read(self):
@@ -52,6 +68,14 @@ class MapStore:
                 raise PolicyError('HISTORY_INTEGRITY_FAILURE')
             if not event['accepted'] and event['before'] != event['after']:
                 raise PolicyError('REJECTED_EVENT_MUTATED_STATE')
+            if state and state['map']['source_sha256'] != event['after']['map']['source_sha256']:
+                old = self._source_for(state['map']['source_sha256'])
+                new = self._source_for(event['after']['map']['source_sha256'])
+                if (event['actor'] != 'MK' or event['operation'] != 'append_requirement'
+                        or not event['accepted'] or new['schema_version'] != old['schema_version']
+                        or len(new['requirements']) != len(old['requirements']) + 1
+                        or new['requirements'][:-1] != old['requirements']):
+                    raise PolicyError('SOURCE_REGISTRY_NOT_APPEND_ONLY')
             state, previous = event['after'], event['sha256']
             self._validate(state)
         return state, len(paths), previous
@@ -116,3 +140,27 @@ class MapStore:
         if failure:
             raise failure
         return after
+
+    def append_requirement(self, requirement, *, basis, expected_revision=None):
+        def reduce(state):
+            if state['map']['active_run']:
+                raise PolicyError('RUN_ACTIVE')
+            if (requirement.get('source_kind'), requirement.get('confirmation'), requirement.get('status')) != (
+                    'USER_MESSAGE', 'USER_CONFIRMED', 'FROZEN'):
+                raise PolicyError('APPEND_REQUIRES_MK_CONFIRMED_FROZEN_REQUIREMENT')
+            source = copy.deepcopy(self._source_for(state['map']['source_sha256']))
+            source['requirements'].append(copy.deepcopy(requirement))
+            validate_sources(source, fixture_mode=self.fixture_mode)
+            sha = digest(source)
+            folder = self.root / 'requirements/versions'
+            folder.mkdir(exist_ok=True)
+            path = folder / (sha + '.json')
+            if path.exists():
+                if read_json(path) != source:
+                    raise PolicyError('SOURCE_REGISTRY_CHANGED')
+            else:
+                with path.open('x', encoding='utf-8', newline='\n') as f:
+                    json.dump(source, f, ensure_ascii=False, indent=2)
+                    f.write('\n'); f.flush(); os.fsync(f.fileno())
+            state['map']['source_sha256'] = sha
+        return self.transact('MK', 'append_requirement', basis, reduce, expected_revision=expected_revision)

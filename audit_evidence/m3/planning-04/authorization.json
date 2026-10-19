@@ -1,0 +1,16 @@
+{
+  "basis": "MK: 第 3 次提案记录为 REJECTED（原因：存在待澄清问题，已由 MK 答复），原文保留。追加 R-004，R-003 原文保持不变。用与第 3 次相同的提示词和参数，以 R-003 + R-004 进行第 4 次规划调用（4/5），不批准入图。",
+  "approved_request_sha256": "9b0946450cfbdcbbe02a2fdc1c8aac325063a78967ab023dafa98a4e447f7ab2",
+  "previous_request_sha256": "55e463c52689f943d99956faf3ef47b9578e99ec330d1c0b6df99f341c589fd8",
+  "prompt_instructions_identical": true,
+  "prompt_data_changes": [
+    "append exact frozen R-004",
+    "map revision 3 to 4 and source_sha256 update"
+  ],
+  "all_cli_arguments_identical": true,
+  "schemas_unchanged": true,
+  "model_calls_before": 3,
+  "authorized_additional_calls": 1,
+  "automatic_retry": false,
+  "approve_into_map": false
+}

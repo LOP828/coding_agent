@@ -1,0 +1,9 @@
+{
+  "id": "R-004",
+  "raw_text": "R-004（对 R-003 的澄清）：provider 存在但不是 openai 或 local 时，同样抛出 InvalidConfigError；缺少 provider 时仍按原规则抛出 MissingProviderError。timeout 必须是整数类型且大于 0；布尔值、字符串（例如 \"30\"）、浮点数（例如 30.0）一律视为不合法，抛出 InvalidConfigError。",
+  "source_ref": "MK-confirmed-user-message:planning-04:R-004",
+  "source_kind": "USER_MESSAGE",
+  "confirmation": "USER_CONFIRMED",
+  "status": "FROZEN",
+  "sha256_utf8": "96d41bbd9a9586198e49ecb757de345469fa8910af75043c7e1c957293b507d8"
+}

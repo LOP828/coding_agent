@@ -1,0 +1,19 @@
+{
+  "requirement": {
+    "id": "R-004",
+    "raw_text": "R-004（对 R-003 的澄清）：provider 存在但不是 openai 或 local 时，同样抛出 InvalidConfigError；缺少 provider 时仍按原规则抛出 MissingProviderError。timeout 必须是整数类型且大于 0；布尔值、字符串（例如 \"30\"）、浮点数（例如 30.0）一律视为不合法，抛出 InvalidConfigError。",
+    "source_ref": "MK-confirmed-user-message:planning-04:R-004",
+    "source_kind": "USER_MESSAGE",
+    "confirmation": "USER_CONFIRMED",
+    "status": "FROZEN",
+    "sha256_utf8": "96d41bbd9a9586198e49ecb757de345469fa8910af75043c7e1c957293b507d8"
+  },
+  "previous_source_sha256": "ddc3083ab1a100d43c5698547e20290be8990fc18f56ac7de2e1221773bc436d",
+  "source_sha256": "cdc382bb12767c43420fdcad6ae47c6f890d95d7b98a6350573182813a5db619",
+  "R003_unchanged": true,
+  "original_registry_bytes_unchanged": true,
+  "prior_history_bytes_unchanged": true,
+  "map_revision_before": 3,
+  "map_revision_after": 4,
+  "nodes_unchanged": true
+}

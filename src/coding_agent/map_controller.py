@@ -22,6 +22,8 @@ class MapController:
         self.controller_root = Path(controller_root).resolve()
 
     def mk(self, operation, *, basis, expected_revision=None, **args):
+        if operation == 'append_requirement':
+            return self.store.append_requirement(args['requirement'], basis=basis, expected_revision=expected_revision)
         def reduce(state):
             m = state['map']; nodes = nodes_by_id(m)
             node = nodes.get(args.get('node_id'))

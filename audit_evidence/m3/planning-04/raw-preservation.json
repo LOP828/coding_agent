@@ -1,0 +1,10 @@
+{
+  "previous_raw_path": "/mnt/d/project/coding_agent_m3_runs/planning-01/raw/proposal.json",
+  "preserved_raw_path": "/mnt/d/project/coding_agent_m3_runs/planning-01/raw/call-03/proposal.json",
+  "sha256": "81594357871185e6102c28fcb6a7eea4dd8660047a2267180eb6c333ab641cb0",
+  "byte_identical": true,
+  "other_preserved_copies": [
+    "audit_evidence/m3/planning-03/proposal.json",
+    "/mnt/d/project/coding_agent_m3_state/provider-validation/raw/planning-03/message.bin"
+  ]
+}
