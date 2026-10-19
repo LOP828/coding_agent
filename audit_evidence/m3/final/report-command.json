@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/tmp/coding-agent-m1-category8-s6qqkjt0/bin/python3.11",
+    "-m",
+    "coding_agent.m3_run",
+    "report",
+    "--state-root",
+    "/mnt/d/project/coding_agent_m3_state/provider-validation"
+  ],
+  "export": "exports/status.md",
+  "note": "Controller report plus deterministic approval and MK execution-readiness notes."
+}

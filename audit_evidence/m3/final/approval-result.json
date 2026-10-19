@@ -1,0 +1,14 @@
+{
+  "status": "APPROVED",
+  "proposal_id": "planning-04",
+  "proposal_sha256": "d36601314fea78e5204216afbe84ac8937f5739d34299a67458409d09f19f04a",
+  "map_revision_before": 4,
+  "map_revision_after": 5,
+  "event_path": "/mnt/d/project/coding_agent_m3_state/provider-validation/history/00000011.json",
+  "event_sha256": "bbb7256110e1f8bc5aaf423feee6f2949b2914d0100c156e4c31afada1ea5920",
+  "controller_exit_code": 0,
+  "atomic_tasks_started": 0,
+  "model_calls": 4,
+  "remaining_calls": 1,
+  "remaining_call_policy": "MK: remaining one call will not be used"
+}
