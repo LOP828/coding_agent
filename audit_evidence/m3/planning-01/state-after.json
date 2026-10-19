@@ -1,0 +1,30 @@
+{
+  "map": {
+    "schema_version": "m3.1",
+    "revision": 3,
+    "goal": "配置校验扩展：只读规划",
+    "source_sha256": "ddc3083ab1a100d43c5698547e20290be8990fc18f56ac7de2e1221773bc436d",
+    "focus": "stage",
+    "active_run": null,
+    "nodes": [
+      {
+        "id": "stage",
+        "parent_id": null,
+        "title": "stage",
+        "type": "STAGE",
+        "requirement_refs": [
+          "R-003"
+        ],
+        "origin": "EXPLICIT",
+        "derivation_reason": "",
+        "status": "READY",
+        "created_by": "MK",
+        "approval_ref": null,
+        "deferred_by": null
+      }
+    ],
+    "deferred_requirements": []
+  },
+  "findings": [],
+  "proposals": []
+}

@@ -1,0 +1,34 @@
+{
+  "status": "REQUEST_REJECTED_BY_API_BEFORE_PROPOSAL",
+  "approved_request_sha256": "8ab9ba84df8974c227f5de83580973a81737c46667129e3009cbda79e7917997",
+  "exit_code": 1,
+  "timed_out": false,
+  "api_error": {
+    "type": "error",
+    "error": {
+      "message": "Invalid schema for response_format 'codex_output_schema': 'schema.properties.nodes.items.properties.requirement_refs.uniqueItems' is not permitted when strict is true.",
+      "type": "invalid_request_error",
+      "param": "text.format.schema",
+      "code": "invalid_json_schema"
+    },
+    "status": 400
+  },
+  "proposal_raw": null,
+  "proposal_validation": "NOT_RUN_NO_PROPOSAL",
+  "questions_for_mk": null,
+  "questions_status": "NOT_AVAILABLE_NO_PROPOSAL; not an empty-question conclusion",
+  "raw_output_expected": "/mnt/d/project/coding_agent_m3_runs/planning-01/raw/proposal.json",
+  "model_calls": 1,
+  "counting_unit": "AI_BACKED_CODEX_EXEC_INVOCATION",
+  "retry_calls": 0,
+  "call_limit": 5,
+  "project_unchanged": true,
+  "state_sha256_before": "1be9bac6ef056d529c4cef7554381412f81751395077666222372ccdd1a1ed69",
+  "state_sha256_after": "1be9bac6ef056d529c4cef7554381412f81751395077666222372ccdd1a1ed69",
+  "map_unchanged": true,
+  "map_revision": 3,
+  "proposal_count": 0,
+  "approved_into_map": false,
+  "implementation_commit": "f600100",
+  "next_action": "Prepare a compatible transport schema while retaining uniqueItems in controller validation; any second real call requires separate MK authorization."
+}
