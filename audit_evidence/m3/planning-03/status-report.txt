@@ -1,0 +1,25 @@
+主线/目标：配置校验扩展：只读规划
+当前焦点：stage
+
+节点：
+- stage | 父：None | READY | stage
+
+暂存区：
+- 无
+
+待 MK 决策：
+- 提案 planning-03：PENDING_MK；哈希 16feccd7327cba49ff10c784c3f09485f9b055702ff3642b42a34ad72dd92483
+
+MK 不批准的提案（原文保留）：
+- planning-02：REJECTED；依据：MK 不批准 planning-02：规划 AI 未将需求中的未明确事项列入 questions_for_mk；validate_provider 的属性“其他 provider 值触发 InvalidConfigError”并非需求原文明确规定，却被标为 EXPLICIT。结构校验全部通过，说明结构校验无法发现此类问题。
+
+待 MK 澄清的问题：
+- 提案 planning-03 / R-003：provider 不是 openai 或 local 时，应抛出什么异常？需求中的 InvalidConfigError 是否也适用于这条规则？
+- 提案 planning-03 / R-003：timeout 的“正整数”如何判定类型：是否拒绝布尔值、整数形式的字符串及值为整数的浮点数？
+
+未覆盖冻结需求（仅结构检查）：
+- 无
+
+真实规划调用：3/5（第 1 次 API 拒绝，第 2、3 次成功）；无自动重试。
+第 2 次提案已由 MK 不批准并保留；第 3 次完整 Schema 与结构校验 PASS，存在 2 项待 MK 澄清问题。
+地图 revision 3 未变化；第 3 次提案 PENDING_MK，未批准入图。

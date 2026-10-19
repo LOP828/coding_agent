@@ -1,0 +1,257 @@
+{
+  "map": {
+    "schema_version": "m3.1",
+    "revision": 3,
+    "goal": "配置校验扩展：只读规划",
+    "source_sha256": "ddc3083ab1a100d43c5698547e20290be8990fc18f56ac7de2e1221773bc436d",
+    "focus": "stage",
+    "active_run": null,
+    "nodes": [
+      {
+        "id": "stage",
+        "parent_id": null,
+        "title": "stage",
+        "type": "STAGE",
+        "requirement_refs": [
+          "R-003"
+        ],
+        "origin": "EXPLICIT",
+        "derivation_reason": "",
+        "status": "READY",
+        "created_by": "MK",
+        "approval_ref": null,
+        "deferred_by": null
+      }
+    ],
+    "deferred_requirements": []
+  },
+  "findings": [],
+  "proposals": [
+    {
+      "id": "planning-02",
+      "run_id": "planning-02",
+      "sha256": "a0e1fb25f20ddbf66b6b68d4df9f814fd24269e55a5ea526960b02c2dfb03b13",
+      "proposal": {
+        "schema_version": "m3.1",
+        "base_revision": 3,
+        "nodes": [
+          {
+            "id": "invalid_config_error",
+            "parent_id": "stage",
+            "title": "定义 InvalidConfigError",
+            "type": "ATOMIC",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "DERIVED",
+            "derivation_reason": "现有代码尚未定义需求指定的异常，需先提供该异常供两条校验规则使用。"
+          },
+          {
+            "id": "validate_provider",
+            "parent_id": "stage",
+            "title": "限制 provider 的可用值",
+            "type": "ATOMIC",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "EXPLICIT",
+            "derivation_reason": ""
+          },
+          {
+            "id": "validate_timeout",
+            "parent_id": "stage",
+            "title": "校验可选 timeout 为正整数",
+            "type": "ATOMIC",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "EXPLICIT",
+            "derivation_reason": ""
+          }
+        ],
+        "atomic_task_drafts": [
+          {
+            "node_id": "invalid_config_error",
+            "title": "定义 InvalidConfigError",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "DERIVED",
+            "derivation_reason": "需求要求校验失败时抛出 InvalidConfigError，而当前 config_loader.py 中没有该异常。",
+            "allowed_change_paths": [
+              "config_loader.py"
+            ],
+            "properties": [
+              {
+                "statement": "config_loader.py 提供可供 validate_config 抛出的 InvalidConfigError。",
+                "requirement_refs": [
+                  "R-003"
+                ],
+                "origin": "DERIVED",
+                "derivation_reason": "实现需求指定的异常所必需。"
+              }
+            ]
+          },
+          {
+            "node_id": "validate_provider",
+            "title": "限制 provider 的可用值",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "EXPLICIT",
+            "derivation_reason": "",
+            "allowed_change_paths": [
+              "config_loader.py"
+            ],
+            "properties": [
+              {
+                "statement": "validate_config 仅接受 provider 值为 openai 或 local 的配置；其他已提供的 provider 值触发 InvalidConfigError。",
+                "requirement_refs": [
+                  "R-003"
+                ],
+                "origin": "EXPLICIT",
+                "derivation_reason": ""
+              }
+            ]
+          },
+          {
+            "node_id": "validate_timeout",
+            "title": "校验可选 timeout 为正整数",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "EXPLICIT",
+            "derivation_reason": "",
+            "allowed_change_paths": [
+              "config_loader.py"
+            ],
+            "properties": [
+              {
+                "statement": "配置包含 timeout 时，validate_config 仅接受正整数；其他值触发 InvalidConfigError。",
+                "requirement_refs": [
+                  "R-003"
+                ],
+                "origin": "EXPLICIT",
+                "derivation_reason": ""
+              },
+              {
+                "statement": "配置未包含 timeout 时，不因缺少 timeout 而触发该规则的异常。",
+                "requirement_refs": [
+                  "R-003"
+                ],
+                "origin": "DERIVED",
+                "derivation_reason": "需求以“如果配置里有 timeout”为校验前提。"
+              }
+            ]
+          }
+        ],
+        "questions_for_mk": []
+      },
+      "status": "REJECTED",
+      "decision_ref": "MK 不批准 planning-02：规划 AI 未将需求中的未明确事项列入 questions_for_mk；validate_provider 的属性“其他 provider 值触发 InvalidConfigError”并非需求原文明确规定，却被标为 EXPLICIT。结构校验全部通过，说明结构校验无法发现此类问题。"
+    },
+    {
+      "id": "planning-03",
+      "run_id": "planning-03",
+      "sha256": "16feccd7327cba49ff10c784c3f09485f9b055702ff3642b42a34ad72dd92483",
+      "proposal": {
+        "schema_version": "m3.1",
+        "base_revision": 3,
+        "nodes": [
+          {
+            "id": "validate-provider-values",
+            "parent_id": "stage",
+            "title": "校验 provider 取值",
+            "type": "ATOMIC",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "EXPLICIT",
+            "derivation_reason": ""
+          },
+          {
+            "id": "validate-optional-timeout",
+            "parent_id": "stage",
+            "title": "校验可选 timeout",
+            "type": "ATOMIC",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "EXPLICIT",
+            "derivation_reason": ""
+          }
+        ],
+        "atomic_task_drafts": [
+          {
+            "node_id": "validate-provider-values",
+            "title": "校验 provider 取值",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "EXPLICIT",
+            "derivation_reason": "",
+            "allowed_change_paths": [
+              "config_loader.py"
+            ],
+            "properties": [
+              {
+                "statement": "provider 只能是 openai 或 local。",
+                "requirement_refs": [
+                  "R-003"
+                ],
+                "origin": "EXPLICIT",
+                "derivation_reason": ""
+              }
+            ]
+          },
+          {
+            "node_id": "validate-optional-timeout",
+            "title": "校验可选 timeout",
+            "requirement_refs": [
+              "R-003"
+            ],
+            "origin": "EXPLICIT",
+            "derivation_reason": "",
+            "allowed_change_paths": [
+              "config_loader.py"
+            ],
+            "properties": [
+              {
+                "statement": "如果配置里有 timeout，必须是正整数，否则抛出 InvalidConfigError。",
+                "requirement_refs": [
+                  "R-003"
+                ],
+                "origin": "EXPLICIT",
+                "derivation_reason": ""
+              },
+              {
+                "statement": "在 config_loader.py 中提供 InvalidConfigError 定义，供 timeout 校验抛出。",
+                "requirement_refs": [
+                  "R-003"
+                ],
+                "origin": "DERIVED",
+                "derivation_reason": "现有代码未定义 InvalidConfigError；实现需求中指定的异常需要提供该类。"
+              }
+            ]
+          }
+        ],
+        "questions_for_mk": [
+          {
+            "question": "provider 不是 openai 或 local 时，应抛出什么异常？需求中的 InvalidConfigError 是否也适用于这条规则？",
+            "requirement_refs": [
+              "R-003"
+            ]
+          },
+          {
+            "question": "timeout 的“正整数”如何判定类型：是否拒绝布尔值、整数形式的字符串及值为整数的浮点数？",
+            "requirement_refs": [
+              "R-003"
+            ]
+          }
+        ]
+      },
+      "status": "PENDING_MK",
+      "decision_ref": null
+    }
+  ]
+}

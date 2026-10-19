@@ -1,0 +1,49 @@
+{
+  "status": "PENDING_MK",
+  "approved_request_sha256": "55e463c52689f943d99956faf3ef47b9578e99ec330d1c0b6df99f341c589fd8",
+  "exit_code": 0,
+  "timed_out": false,
+  "model": "gpt-6-sol",
+  "reasoning": "medium",
+  "version": "codex-cli 0.163.0",
+  "model_calls": 3,
+  "counting_unit": "AI_BACKED_CODEX_EXEC_INVOCATION",
+  "failed_invocations": 1,
+  "successful_invocations": 2,
+  "automatic_retries": 0,
+  "call_limit": 5,
+  "project_unchanged": true,
+  "map_unchanged": true,
+  "map_revision": 3,
+  "map_sha256_before": "8a8e785cc697e22f1a0f882ed7b93e6d95814321f996c3020b5ae8d815671bf4",
+  "map_sha256_after": "8a8e785cc697e22f1a0f882ed7b93e6d95814321f996c3020b5ae8d815671bf4",
+  "previous_proposal_status": "REJECTED",
+  "previous_proposal_preserved": true,
+  "state_change_during_call": "Only proposal planning-03 registered as PENDING_MK by controller",
+  "proposal_raw_sha256": "81594357871185e6102c28fcb6a7eea4dd8660047a2267180eb6c333ab641cb0",
+  "proposal_canonical_sha256": "16feccd7327cba49ff10c784c3f09485f9b055702ff3642b42a34ad72dd92483",
+  "proposal_file": "/mnt/d/project/coding_agent_m3_runs/planning-01/raw/proposal.json",
+  "questions_for_mk": [
+    {
+      "question": "provider 不是 openai 或 local 时，应抛出什么异常？需求中的 InvalidConfigError 是否也适用于这条规则？",
+      "requirement_refs": [
+        "R-003"
+      ]
+    },
+    {
+      "question": "timeout 的“正整数”如何判定类型：是否拒绝布尔值、整数形式的字符串及值为整数的浮点数？",
+      "requirement_refs": [
+        "R-003"
+      ]
+    }
+  ],
+  "approved_into_map": false,
+  "implementation_commit": "1853513a28ec775ebae16acc0492838e967a5815",
+  "usage_reported_by_cli": {
+    "input_tokens": 43604,
+    "cached_input_tokens": 28544,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 1454,
+    "reasoning_output_tokens": 720
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "m3.1",
+  "base_revision": 3,
+  "nodes": [
+    {
+      "id": "validate-provider-values",
+      "parent_id": "stage",
+      "title": "校验 provider 取值",
+      "type": "ATOMIC",
+      "requirement_refs": ["R-003"],
+      "origin": "EXPLICIT",
+      "derivation_reason": ""
+    },
+    {
+      "id": "validate-optional-timeout",
+      "parent_id": "stage",
+      "title": "校验可选 timeout",
+      "type": "ATOMIC",
+      "requirement_refs": ["R-003"],
+      "origin": "EXPLICIT",
+      "derivation_reason": ""
+    }
+  ],
+  "atomic_task_drafts": [
+    {
+      "node_id": "validate-provider-values",
+      "title": "校验 provider 取值",
+      "requirement_refs": ["R-003"],
+      "origin": "EXPLICIT",
+      "derivation_reason": "",
+      "allowed_change_paths": ["config_loader.py"],
+      "properties": [
+        {
+          "statement": "provider 只能是 openai 或 local。",
+          "requirement_refs": ["R-003"],
+          "origin": "EXPLICIT",
+          "derivation_reason": ""
+        }
+      ]
+    },
+    {
+      "node_id": "validate-optional-timeout",
+      "title": "校验可选 timeout",
+      "requirement_refs": ["R-003"],
+      "origin": "EXPLICIT",
+      "derivation_reason": "",
+      "allowed_change_paths": ["config_loader.py"],
+      "properties": [
+        {
+          "statement": "如果配置里有 timeout，必须是正整数，否则抛出 InvalidConfigError。",
+          "requirement_refs": ["R-003"],
+          "origin": "EXPLICIT",
+          "derivation_reason": ""
+        },
+        {
+          "statement": "在 config_loader.py 中提供 InvalidConfigError 定义，供 timeout 校验抛出。",
+          "requirement_refs": ["R-003"],
+          "origin": "DERIVED",
+          "derivation_reason": "现有代码未定义 InvalidConfigError；实现需求中指定的异常需要提供该类。"
+        }
+      ]
+    }
+  ],
+  "questions_for_mk": [
+    {
+      "question": "provider 不是 openai 或 local 时，应抛出什么异常？需求中的 InvalidConfigError 是否也适用于这条规则？",
+      "requirement_refs": ["R-003"]
+    },
+    {
+      "question": "timeout 的“正整数”如何判定类型：是否拒绝布尔值、整数形式的字符串及值为整数的浮点数？",
+      "requirement_refs": ["R-003"]
+    }
+  ]
+}
