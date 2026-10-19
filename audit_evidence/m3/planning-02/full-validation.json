@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "scope": "Full controller schema and deterministic structural rules; no semantic approval",
+  "strict_json_parse": "PASS",
+  "full_schema": "/mnt/d/project/coding_agent/src/coding_agent/schemas/m3_plan_proposal.schema.json",
+  "full_schema_sha256": "b29d8d93ec697922b83f207e577d2336b700fec7da838f66420b9f1918083e6c",
+  "full_schema_errors": [],
+  "api_schema_errors": [],
+  "structural_validation": {
+    "status": "PASS",
+    "checks": [
+      "base_revision equals map revision 3",
+      "simulated graph: unique IDs, valid stage parents, no cycles, no closed parents",
+      "frozen source registry and SHA hashes valid",
+      "node/draft/property requirement references valid",
+      "derived records have nonempty derivation reasons",
+      "atomic nodes and drafts match one-to-one",
+      "draft references match node references",
+      "property references cover draft requirements",
+      "allowed change paths pass controller path validation",
+      "question references use known requirement IDs"
+    ]
+  },
+  "node_count": 3,
+  "atomic_draft_count": 3,
+  "questions_for_mk": [],
+  "proposal_status": "PENDING_MK",
+  "approved_into_map": false,
+  "semantic_requirement_review": "NOT_PERFORMED_BY_DETERMINISTIC_CONTROLLER"
+}

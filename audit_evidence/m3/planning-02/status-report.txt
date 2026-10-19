@@ -1,0 +1,22 @@
+主线/目标：配置校验扩展：只读规划
+当前焦点：stage
+
+节点：
+- stage | 父：None | READY | stage
+
+暂存区：
+- 无
+
+待 MK 决策：
+- 提案 planning-02：PENDING_MK；哈希 a0e1fb25f20ddbf66b6b68d4df9f814fd24269e55a5ea526960b02c2dfb03b13
+
+待 MK 澄清的问题：
+- 无
+
+未覆盖冻结需求（仅结构检查）：
+- 无
+
+真实规划调用：2/5（第 1 次 API 拒绝，第 2 次成功）；无自动重试。
+完整 Schema 与结构校验：PASS。
+questions_for_mk 原文：[]；仅表示提案未列问题，不代表语义审批完成。
+地图 revision 3 未变化；提案 PENDING_MK，未批准入图。
