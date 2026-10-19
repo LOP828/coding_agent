@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
+import signal
 import shutil
 import subprocess
 import tempfile
@@ -16,6 +18,43 @@ from .workspace import EVIDENCE_DIRECTORY, snapshot
 def write_json(path: Path, data: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+
+
+def run_captured(command: list[str], *, cwd: Path, env: dict, evidence: Path,
+                 prefix: str, timeout: float, stdin: bytes | None = None) -> dict:
+    """Capture bytes on disk; descendants cannot keep communicate's output pipes open."""
+    evidence.mkdir(parents=True, exist_ok=True)
+    out = evidence / f"{prefix}.stdout"
+    err = evidence / f"{prefix}.stderr"
+    timed_out = False
+    with out.open("wb") as stdout, err.open("wb") as stderr:
+        process = subprocess.Popen(command, cwd=cwd, env=env,
+                                   stdin=subprocess.PIPE if stdin is not None else subprocess.DEVNULL,
+                                   stdout=stdout, stderr=stderr,
+                                   start_new_session=os.name != "nt")
+        try:
+            process.communicate(input=stdin, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            timed_out = True
+            if os.name == "nt":
+                subprocess.run(["taskkill", "/PID", str(process.pid), "/T", "/F"],
+                               capture_output=True, timeout=10, check=False)
+            else:
+                try:
+                    os.killpg(process.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+            process.kill()
+            process.communicate(timeout=10)
+        finally:
+            if os.name != "nt":
+                # Also stop descendants left behind by an otherwise successful worker.
+                try:
+                    os.killpg(process.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+    return {"command": command, "exit_code": process.returncode, "timed_out": timed_out,
+            "timeout_seconds": timeout, "stdout": out.as_posix(), "stderr": err.as_posix()}
 
 
 def parse_junit(path: Path, reference: str) -> dict:
@@ -80,6 +119,9 @@ class FrozenTests:
 
 def verify_candidate(task: dict, repository: Path, frozen: FrozenTests,
                      environment: PythonEnvironment, evidence: Path, audit: dict) -> list[dict]:
+    if getattr(frozen, "format", None) == "coding-agent-cases-v2":
+        from .isolated_verification import verify_cases
+        return verify_cases(task, repository, frozen, environment, evidence, audit)
     rows = []
     with tempfile.TemporaryDirectory(prefix="coding-agent-verification-") as temporary:
         work = Path(temporary) / "candidate"

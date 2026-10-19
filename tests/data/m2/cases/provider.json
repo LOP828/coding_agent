@@ -1,0 +1,33 @@
+{
+  "format": "coding-agent-cases-v2",
+  "cases": {
+    "missing_provider": {
+      "module": "config_loader.py",
+      "function": "validate_config",
+      "args": [
+        {}
+      ],
+      "kwargs": {},
+      "expect": {
+        "kind": "exception",
+        "type": "MissingProviderError"
+      }
+    },
+    "present_provider": {
+      "module": "config_loader.py",
+      "function": "validate_config",
+      "args": [
+        {
+          "provider": "openai"
+        }
+      ],
+      "kwargs": {},
+      "expect": {
+        "kind": "return",
+        "value": {
+          "provider": "openai"
+        }
+      }
+    }
+  }
+}

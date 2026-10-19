@@ -1,0 +1,60 @@
+{
+  "schema_version": "m0.2",
+  "task_id": "M2-TASK-03",
+  "title": "实现 provider 配置校验（合成实验）",
+  "goal_ref": "G-DEMO",
+  "stage_ref": "S-DEMO",
+  "requirement_refs": [
+    "R-001"
+  ],
+  "allowed_change_paths": [
+    "config_loader.py"
+  ],
+  "protected_paths": [
+    "cases/**",
+    "project_config.py"
+  ],
+  "acceptance_review": {
+    "status": "APPROVED",
+    "basis": "合成夹具（synthetic fixture）；仅用于 M2 演示与回归，不代表 MK 真实审批。",
+    "approval_ref": "fixture-m2-review-03",
+    "approved_payload_sha256": "55eee0c4f146f1512a8a11e8c84facdc91887110331abfba7e5276ab25216f41"
+  },
+  "properties": [
+    {
+      "id": "P-001",
+      "statement": "缺少 provider 时抛出 MissingProviderError，不得默认填充。",
+      "origin": "EXPLICIT",
+      "requirement_refs": [
+        "R-001"
+      ],
+      "scope_impact": "LOCAL_REFINEMENT",
+      "scope_expansion_authorized": false,
+      "checks": [
+        {
+          "method": "UNIT_TEST",
+          "required": true,
+          "reference": "cases/provider.json::missing_provider"
+        },
+        {
+          "method": "UNIT_TEST",
+          "required": true,
+          "reference": "cases/provider.json::present_provider"
+        }
+      ]
+    }
+  ],
+  "task_checks": [
+    {
+      "method": "DIFF_ALLOWLIST",
+      "required": true,
+      "reference": "allowed_change_paths"
+    }
+  ],
+  "acceptance_test_manifest": [
+    {
+      "path": "cases/provider.json",
+      "sha256_utf8_lf": "9ccef076b844298bfea4d9f60c0cf0ddf91fc349fc705f98bed472cc2106cec1"
+    }
+  ]
+}

@@ -27,11 +27,13 @@ class Runner:
     test manifest, environment settings, or claimed result is accepted from it.
     """
     def __init__(self, test_root: Path, source: dict, trusted_records: dict,
-                 evidence_root: Path, *, python: Path | None = None, fixture_mode: bool = False):
+                 evidence_root: Path | None = None, *, python: Path | None = None,
+                 fixture_mode: bool = False, case_timeout: float = 30):
         self.test_root = test_root.resolve()
         self.source = copy.deepcopy(source)
         self.records = copy.deepcopy(trusted_records)
-        self.evidence_root = evidence_root.resolve()
+        self.evidence_root = evidence_root.resolve() if evidence_root is not None else None
+        self.case_timeout = case_timeout
         self.python = python
         self.fixture_mode = fixture_mode
         self._environment = None
@@ -39,9 +41,10 @@ class Runner:
     def run(self, task: dict, repository: Path, executor: Callable[[Path], None]) -> dict:
         task = copy.deepcopy(task)
         repository = repository.resolve()
-        if self.evidence_root.is_relative_to(repository) and not self.evidence_root.is_relative_to(repository / EVIDENCE_DIRECTORY):
+        evidence_root = self.evidence_root or repository.parent / EVIDENCE_DIRECTORY
+        if evidence_root.is_relative_to(repository) and not evidence_root.is_relative_to(repository / EVIDENCE_DIRECTORY):
             raise PolicyError("UNREGISTERED_EVIDENCE_DIRECTORY")
-        evidence = self.evidence_root / uuid.uuid4().hex
+        evidence = evidence_root / uuid.uuid4().hex
         evidence.mkdir(parents=True)
         audit = {"events": [], "executor_calls": 0, "candidate_process_starts": 0, "checks": [],
                  "evidence_directory": evidence.as_posix(), "report": None}
@@ -55,7 +58,16 @@ class Runner:
             validate_admission(task, self.source, self.records, self.test_root, fixture_mode=self.fixture_mode)
             admitted = True
             audit["events"].append({"event": "admitted"})
-            frozen = FrozenTests(task, self.test_root)
+            suffixes = {Path(row["path"]).suffix for row in task["acceptance_test_manifest"]}
+            if ".json" in suffixes:
+                if suffixes != {".json"}:
+                    raise PolicyError("MIXED_VERIFICATION_FORMATS")
+                if evidence_root.is_relative_to(repository) or self.test_root.is_relative_to(repository):
+                    raise PolicyError("M2_TRUSTED_MATERIAL_INSIDE_CANDIDATE")
+                from .isolated_verification import FrozenCases
+                frozen = FrozenCases(task, self.test_root, timeout=self.case_timeout)
+            else:
+                frozen = FrozenTests(task, self.test_root)
             with tempfile.TemporaryDirectory(prefix="coding-agent-hooks-") as hooks:
                 workspace = Workspace(repository, Path(hooks))
                 baseline = workspace.baseline()
@@ -119,7 +131,7 @@ class Runner:
             ).hexdigest()
             report = {"schema_version": "m0.2", "task_id": task["task_id"], "revision": revision,
                       "environment": {"platform": platform.system(), "python": environment.info["version"] if environment else platform.python_version(),
-                                      "tool_versions": {"runner": "m1"}, "lockfile_sha256": None},
+                                      "tool_versions": {"runner": "m2" if audit.get("verification_backend") else "m1"}, "lockfile_sha256": None},
                       "results": rows, "gate": {**gate, "reason": audit.get("failure", "Controller-collected evidence")},
                       "approval_payload_sha256": task["acceptance_review"]["approved_payload_sha256"], "changed_paths": changed}
             validate_report(task, report, expected_revision=revision)

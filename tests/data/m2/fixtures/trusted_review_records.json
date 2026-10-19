@@ -1,0 +1,38 @@
+{
+  "fixture_notice": "合成夹具（synthetic fixture）；不是 MK 的真实审批。",
+  "review_records": [
+    {
+      "task_id": "M2-TASK-01",
+      "status": "APPROVED",
+      "basis": "合成夹具（synthetic fixture）；仅用于 M2 演示与回归，不代表 MK 真实审批。",
+      "approval_ref": "fixture-m2-review-01",
+      "approved_payload_sha256": "d2f434b60753fa0539b476d861cb0254ceed94beba1f05028a862cbcd8971ac9",
+      "fixture_notice": "合成夹具（synthetic fixture）"
+    },
+    {
+      "task_id": "M2-TASK-02",
+      "status": "APPROVED",
+      "basis": "合成夹具（synthetic fixture）；仅用于 M2 演示与回归，不代表 MK 真实审批。",
+      "approval_ref": "fixture-m2-review-02",
+      "approved_payload_sha256": "60b039e1171e3d1da2905538225884796f0871482004b95ed1cb07494344512d",
+      "fixture_notice": "合成夹具（synthetic fixture）"
+    },
+    {
+      "task_id": "M2-TASK-03",
+      "status": "APPROVED",
+      "basis": "合成夹具（synthetic fixture）；仅用于 M2 演示与回归，不代表 MK 真实审批。",
+      "approval_ref": "fixture-m2-review-03",
+      "approved_payload_sha256": "55eee0c4f146f1512a8a11e8c84facdc91887110331abfba7e5276ab25216f41",
+      "fixture_notice": "合成夹具（synthetic fixture）"
+    },
+    {
+      "task_id": "M2-TASK-04",
+      "status": "APPROVED",
+      "basis": "合成夹具（synthetic fixture）；仅用于 M2 演示与回归，不代表 MK 真实审批。",
+      "approval_ref": "fixture-m2-review-04",
+      "approved_payload_sha256": "24dd7bc85d0c210dbe6b0b7200d8147264c28c0885f626ba4738b76d0607bcd6",
+      "fixture_notice": "合成夹具（synthetic fixture）"
+    }
+  ],
+  "scope_authorizations": []
+}

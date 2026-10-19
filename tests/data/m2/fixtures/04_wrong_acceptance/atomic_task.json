@@ -1,0 +1,60 @@
+{
+  "schema_version": "m0.2",
+  "task_id": "M2-TASK-04",
+  "title": "实现 provider 配置校验（合成实验）",
+  "goal_ref": "G-DEMO",
+  "stage_ref": "S-DEMO",
+  "requirement_refs": [
+    "R-001"
+  ],
+  "allowed_change_paths": [
+    "config_loader.py"
+  ],
+  "protected_paths": [
+    "cases/**",
+    "project_config.py"
+  ],
+  "acceptance_review": {
+    "status": "APPROVED",
+    "basis": "合成夹具（synthetic fixture）；仅用于 M2 演示与回归，不代表 MK 真实审批。",
+    "approval_ref": "fixture-m2-review-04",
+    "approved_payload_sha256": "24dd7bc85d0c210dbe6b0b7200d8147264c28c0885f626ba4738b76d0607bcd6"
+  },
+  "properties": [
+    {
+      "id": "P-001",
+      "statement": "缺少 provider 时自动补上 local 默认值，并返回配置。",
+      "origin": "EXPLICIT",
+      "requirement_refs": [
+        "R-001"
+      ],
+      "scope_impact": "LOCAL_REFINEMENT",
+      "scope_expansion_authorized": false,
+      "checks": [
+        {
+          "method": "UNIT_TEST",
+          "required": true,
+          "reference": "cases/wrong_contract.json::missing_provider"
+        },
+        {
+          "method": "UNIT_TEST",
+          "required": true,
+          "reference": "cases/wrong_contract.json::present_provider"
+        }
+      ]
+    }
+  ],
+  "task_checks": [
+    {
+      "method": "DIFF_ALLOWLIST",
+      "required": true,
+      "reference": "allowed_change_paths"
+    }
+  ],
+  "acceptance_test_manifest": [
+    {
+      "path": "cases/wrong_contract.json",
+      "sha256_utf8_lf": "a9549ecb716487c3c0b5f780507e3236cdc6f44ba2d9cf5423503fd32caa8e42"
+    }
+  ]
+}

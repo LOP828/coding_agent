@@ -1,0 +1,14 @@
+{
+  "schema_version": "m0.2",
+  "requirements": [
+    {
+      "id": "R-001",
+      "raw_text": "如果配置缺少 provider 字段，必须抛出 MissingProviderError；不能使用默认 provider，也不能静默通过。",
+      "source_ref": "fixture://provider-validation-v2",
+      "source_kind": "SYNTHETIC_FIXTURE",
+      "confirmation": "NOT_APPLICABLE_FIXTURE",
+      "status": "FROZEN",
+      "sha256_utf8": "dbc51838e791950a5f8192dba714f7e9baa7eab0fbfd2bf225d2bd7595176ffe"
+    }
+  ]
+}
