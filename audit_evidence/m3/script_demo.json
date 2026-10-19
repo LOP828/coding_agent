@@ -1,0 +1,151 @@
+{
+  "model_calls": 0,
+  "workflow": {
+    "task_id": "M2-TASK-01",
+    "result_category": "NONE",
+    "attempts": [
+      {
+        "attempt": 1,
+        "task_id": "M2-TASK-01",
+        "repository": "/mnt/d/project/coding_agent_m3_runs/final-script/script-demo/attempt-1",
+        "result_category": "NONE",
+        "failure_summary": "本次验证通过。",
+        "unmet_requirements": [],
+        "retry_decision": "STOP",
+        "audit": "/mnt/d/project/coding_agent_m3_runs/final-script/script-demo/state/runs/first-8/runner/b65c9e8e7ad64ce6a52af9e2d8e2bb19",
+        "report": {
+          "schema_version": "m0.2",
+          "task_id": "M2-TASK-01",
+          "revision": "48d3037e56fe7f29fd6853618cc19f72ab6a378a:de086aa727303f8d6b4bd2a588f4a23f1377c8ba63a2c2020e886ae5291afc7b",
+          "environment": {
+            "platform": "Linux",
+            "python": "3.11.15",
+            "tool_versions": {
+              "runner": "m2"
+            },
+            "lockfile_sha256": null
+          },
+          "results": [
+            {
+              "property_id": "P-001",
+              "method": "UNIT_TEST",
+              "reference": "cases/provider.json::missing_provider",
+              "status": "PASS",
+              "test_count": 1,
+              "evidence": "/mnt/d/project/coding_agent_m3_runs/final-script/script-demo/state/runs/first-8/runner/b65c9e8e7ad64ce6a52af9e2d8e2bb19/check-0-comparison.json: OBSERVATION_MATCH"
+            },
+            {
+              "property_id": "P-001",
+              "method": "UNIT_TEST",
+              "reference": "cases/provider.json::present_provider",
+              "status": "PASS",
+              "test_count": 1,
+              "evidence": "/mnt/d/project/coding_agent_m3_runs/final-script/script-demo/state/runs/first-8/runner/b65c9e8e7ad64ce6a52af9e2d8e2bb19/check-1-comparison.json: OBSERVATION_MATCH"
+            },
+            {
+              "property_id": null,
+              "method": "DIFF_ALLOWLIST",
+              "reference": "allowed_change_paths",
+              "status": "PASS",
+              "evidence": "Controller filesystem/Git comparison"
+            }
+          ],
+          "gate": {
+            "status": "PASS",
+            "route": "NONE",
+            "reason": "Controller-collected evidence"
+          },
+          "approval_payload_sha256": "773d8387d2a570f435f5a71d206b3ea4889a56a9eafed64fec1df160cc8a74f3",
+          "changed_paths": [
+            "config_loader.py"
+          ]
+        },
+        "executor_result": null
+      }
+    ],
+    "evidence": "/mnt/d/project/coding_agent_m3_runs/final-script/script-demo/state/runs/first-8",
+    "mk_decision": null,
+    "cnc_task": "CANCELLED_BY_MK_NOT_EXECUTED"
+  },
+  "state": {
+    "map": {
+      "schema_version": "m3.1",
+      "revision": 9,
+      "goal": "无模型脚本演示（合成夹具）",
+      "source_sha256": "9337cd0b0fb5764ed377706aad695452a9beff3348fafcd7155bbaf77cf7033a",
+      "focus": "root",
+      "active_run": null,
+      "nodes": [
+        {
+          "id": "root",
+          "parent_id": null,
+          "title": "root",
+          "type": "STAGE",
+          "requirement_refs": [
+            "R-001"
+          ],
+          "origin": "EXPLICIT",
+          "derivation_reason": "",
+          "status": "READY",
+          "created_by": "MK",
+          "approval_ref": null,
+          "deferred_by": null
+        },
+        {
+          "id": "first",
+          "parent_id": "root",
+          "title": "first",
+          "type": "ATOMIC",
+          "requirement_refs": [
+            "R-001"
+          ],
+          "origin": "EXPLICIT",
+          "derivation_reason": "",
+          "status": "DONE",
+          "created_by": "MK",
+          "approval_ref": null,
+          "deferred_by": null
+        },
+        {
+          "id": "second",
+          "parent_id": "root",
+          "title": "second",
+          "type": "ATOMIC",
+          "requirement_refs": [
+            "R-001"
+          ],
+          "origin": "EXPLICIT",
+          "derivation_reason": "",
+          "status": "READY",
+          "created_by": "MK",
+          "approval_ref": null,
+          "deferred_by": null
+        }
+      ],
+      "deferred_requirements": []
+    },
+    "findings": [
+      {
+        "schema_version": "m3.1",
+        "finding_id": "first-8-finding-1-0",
+        "source_node_id": "first",
+        "source_run_id": "first-8",
+        "content": "测试发现记录，等待 MK 决定。",
+        "submitted_by": "EXECUTOR",
+        "evidence_refs": [
+          "executor-final-message"
+        ],
+        "raw_submission_sha256": "fbb3a09120abef28bb528101902a1330d641c6618cb5ae5d6b1e9ebe2c9d199d",
+        "status": "OPEN",
+        "decision_ref": null,
+        "promoted_node_id": null
+      }
+    ],
+    "proposals": []
+  },
+  "sibling_request_rejected": "USE_BOUND_RUN_ENTRYPOINT",
+  "status_report": "/mnt/d/project/coding_agent_m3_runs/final-script/script-demo/status_report.md",
+  "source_kind_notice": "M2 synthetic fixture plus unchanged MK-confirmed R-003",
+  "runner_real": true,
+  "evidence": "/mnt/d/project/coding_agent_m3_runs/final-script/script-demo"
+}
