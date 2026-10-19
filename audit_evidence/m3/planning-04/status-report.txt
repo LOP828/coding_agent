@@ -1,0 +1,26 @@
+主线/目标：配置校验扩展：只读规划
+当前焦点：stage
+
+节点：
+- stage | 父：None | READY | stage
+
+暂存区：
+- 无
+
+待 MK 决策：
+- 提案 planning-04：PENDING_MK；哈希 d36601314fea78e5204216afbe84ac8937f5739d34299a67458409d09f19f04a
+
+MK 不批准的提案（原文保留）：
+- planning-02：REJECTED；依据：MK 不批准 planning-02：规划 AI 未将需求中的未明确事项列入 questions_for_mk；validate_provider 的属性“其他 provider 值触发 InvalidConfigError”并非需求原文明确规定，却被标为 EXPLICIT。结构校验全部通过，说明结构校验无法发现此类问题。
+- planning-03：REJECTED；依据：MK 不批准 planning-03：存在待澄清问题，已由 MK 答复；答复作为新冻结需求 R-004 追加。
+
+待 MK 澄清的问题：
+- 无
+
+未覆盖冻结需求（仅结构检查）：
+- R-004
+
+真实规划调用：4/5（第 1 次 API 拒绝，第 2、3、4 次成功）；无自动重试。
+第 3 次提案已由 MK 不批准并保留；R-004 已逐字冻结追加，R-003 不变。
+第 4 次完整 Schema 与结构校验 PASS；questions_for_mk 原文为 []，不代表语义审批通过。
+追加需求后地图为 revision 4，本次调用期间地图未变化；提案 PENDING_MK，未批准入图。

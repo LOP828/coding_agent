@@ -1,0 +1,77 @@
+{
+  "schema_version": "m3.1",
+  "base_revision": 4,
+  "nodes": [
+    {
+      "id": "validate_provider",
+      "parent_id": "stage",
+      "title": "校验 provider 并使用指定异常",
+      "type": "ATOMIC",
+      "requirement_refs": ["R-003", "R-004"],
+      "origin": "DERIVED",
+      "derivation_reason": "将 provider 规则拆为可独立实施的任务。"
+    },
+    {
+      "id": "validate_timeout",
+      "parent_id": "stage",
+      "title": "校验可选 timeout",
+      "type": "ATOMIC",
+      "requirement_refs": ["R-003", "R-004"],
+      "origin": "DERIVED",
+      "derivation_reason": "将 timeout 规则拆为可独立实施的任务。"
+    }
+  ],
+  "atomic_task_drafts": [
+    {
+      "node_id": "validate_provider",
+      "title": "校验 provider 并使用指定异常",
+      "requirement_refs": ["R-003", "R-004"],
+      "origin": "DERIVED",
+      "derivation_reason": "现有 validate_config 位于 config_loader.py；该任务集中处理 provider 规则。",
+      "allowed_change_paths": ["config_loader.py"],
+      "properties": [
+        {
+          "statement": "provider 存在但不是 openai 或 local 时，抛出 InvalidConfigError。",
+          "requirement_refs": ["R-003", "R-004"],
+          "origin": "EXPLICIT",
+          "derivation_reason": ""
+        },
+        {
+          "statement": "缺少 provider 时，仍抛出 MissingProviderError。",
+          "requirement_refs": ["R-004"],
+          "origin": "EXPLICIT",
+          "derivation_reason": ""
+        },
+        {
+          "statement": "在 config_loader.py 中提供 InvalidConfigError，供该模块的校验逻辑抛出。",
+          "requirement_refs": ["R-003", "R-004"],
+          "origin": "DERIVED",
+          "derivation_reason": "需求指定该异常，但当前代码中尚无其定义；校验逻辑位于 config_loader.py。"
+        }
+      ]
+    },
+    {
+      "node_id": "validate_timeout",
+      "title": "校验可选 timeout",
+      "requirement_refs": ["R-003", "R-004"],
+      "origin": "DERIVED",
+      "derivation_reason": "现有 validate_config 位于 config_loader.py；该任务集中处理 timeout 规则。",
+      "allowed_change_paths": ["config_loader.py"],
+      "properties": [
+        {
+          "statement": "配置中有 timeout 时，其值必须是整数类型且大于 0，否则抛出 InvalidConfigError。",
+          "requirement_refs": ["R-003", "R-004"],
+          "origin": "EXPLICIT",
+          "derivation_reason": ""
+        },
+        {
+          "statement": "布尔值、字符串（例如 \"30\"）和浮点数（例如 30.0）均视为不合法，抛出 InvalidConfigError。",
+          "requirement_refs": ["R-004"],
+          "origin": "EXPLICIT",
+          "derivation_reason": ""
+        }
+      ]
+    }
+  ],
+  "questions_for_mk": []
+}
