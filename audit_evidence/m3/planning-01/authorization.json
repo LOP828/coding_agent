@@ -1,0 +1,13 @@
+{
+  "basis": "MK user message: 调整后重新计算请求摘要并记入证据，然后执行这 1 次调用。结果出来后，把提案原文、校验结果、questions_for_mk 的内容都给我，先不要批准入图。",
+  "previous_request_sha256": "e3e6252d095f2c0ed89e5035e27320f44a8e3a56e58fbb8180b242520b6e697c",
+  "approved_request_sha256": "8ab9ba84df8974c227f5de83580973a81737c46667129e3009cbda79e7917997",
+  "allowed_calls": 1,
+  "approve_into_map": false,
+  "changes": [
+    "--output-last-message: /mnt/d/project/coding_agent_m3_runs/planning-01/raw/proposal.json",
+    "被规划项目的代码位于当前工作目录，可只读查看现有文件以确定接口和允许修改的路径。"
+  ],
+  "other_request_fields_unchanged": true,
+  "model_calls_before": 0
+}

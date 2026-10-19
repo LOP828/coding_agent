@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 
-from .findings import ingest
+from .findings import ingest, parse_message
 from .m0 import PolicyError, approval_payload_sha256, read_json
 from .m2_run import create_demo
 from .map_controller import MapController
@@ -16,7 +16,7 @@ from .map_report import render
 from .map_store import MapStore
 from .readonly_ai import ReadOnlyAI, planning_prompt
 from .runner import Runner
-from .task_map import digest
+from .task_map import digest, validate_proposal
 from .verification import write_json
 from .workspace import snapshot
 
@@ -103,12 +103,13 @@ def prepare(run_root, state_root, controller, proof):
     control.mk('transition',basis='MK_CONFIRMED_M3_PLAN',node_id='stage',target='READY')
     control.mk('switch_focus',basis='MK_CONFIRMED_M3_PLAN',node_id='stage')
     evidence=store.root/'runs/planning-01'
-    ai=ReadOnlyAI(project=project,controller=controller,state=store.root,evidence=evidence,proof=proof)
+    raw_output=run_root/'planning-01/raw/proposal.json'
+    ai=ReadOnlyAI(project=project,controller=controller,state=store.root,evidence=evidence,proof=proof,raw_output=raw_output)
     request=ai.preview(planning_prompt(source,store.read()['map']))
     prepared={'request':request,'approval_sha256':digest(request),'project_snapshot':snapshot(project),
               'state_sha256':digest(store.read()),'source_sha256':digest(source),'project':str(project),
               'controller':str(controller),'state':str(store.root),'evidence':str(evidence),'proof':str(Path(proof).resolve()),
-              'status':'AWAITING_MK_PROMPT_AND_PARAMETER_APPROVAL','model_calls':0}
+              'raw_output':str(raw_output),'status':'AWAITING_MK_PROMPT_AND_PARAMETER_APPROVAL','model_calls':0}
     path=evidence/'prepared-request.json';write_json(path,prepared)
     return path
 
@@ -118,15 +119,19 @@ def execute(prepared_path, approved_sha256):
     store=MapStore(Path(p['state']))
     if snapshot(Path(p['project'])) != p['project_snapshot'] or digest(store.read()) != p['state_sha256']:
         raise PolicyError('PREPARED_INPUT_CHANGED')
-    ai=ReadOnlyAI(project=p['project'],controller=p['controller'],state=p['state'],evidence=p['evidence'],proof=p['proof'])
+    ai=ReadOnlyAI(project=p['project'],controller=p['controller'],state=p['state'],evidence=p['evidence'],proof=p['proof'],raw_output=p['raw_output'])
     raw=ai.execute_approved(p['request'],approved_sha256)
     controller=MapController(store,p['controller'])
     try:
+        # Validate external raw output before storing any proposal in state.
+        proposal=parse_message(raw,'m3_plan_proposal')
+        validate_proposal(proposal,store.read()['map'],store.source,fixture_mode=store.fixture_mode)
         result=controller.submit_proposal(raw,proposal_id='planning-01',run_id='planning-01')
         status='PENDING_MK'
     except Exception as error:
         status='REJECTED: '+str(error);result=store.read()
-    report={'status':status,'state':result,'model_calls':len(read_json(store.root/'runs/planning-call-ledger.json')['calls'])}
+    report={'status':status,'state':result,'raw_output':p['raw_output'],
+            'model_calls':len(read_json(store.root/'runs/planning-call-ledger.json')['calls'])}
     write_json(Path(p['evidence'])/'planning-result.json',report)
     return report
 

@@ -1,0 +1,17 @@
+{
+  "scope": "tests/test_m3_readonly_ai.py",
+  "linux": {
+    "passed": 10,
+    "failed": 0,
+    "duration_seconds": 3.78,
+    "command": "/tmp/coding-agent-m1-category8-s6qqkjt0/bin/python3.11 -m pytest tests/test_m3_readonly_ai.py -q"
+  },
+  "windows": {
+    "passed": 10,
+    "failed": 0,
+    "duration_seconds": 1.55,
+    "command": ".venv-windows/Scripts/python.exe -m pytest tests/test_m3_readonly_ai.py -q",
+    "PYTHONUTF8": null
+  },
+  "note": "Focused regressions for external raw output and controller ingestion. Prior full-suite 227/227 per platform remains separately archived."
+}
