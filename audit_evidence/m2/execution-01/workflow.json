@@ -1,0 +1,99 @@
+{
+  "task_id": "M2-TASK-01",
+  "result_category": "NONE",
+  "attempts": [
+    {
+      "attempt": 1,
+      "task_id": "M2-TASK-01",
+      "repository": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1",
+      "result_category": "NONE",
+      "failure_summary": "本次验证通过。",
+      "unmet_requirements": [],
+      "retry_decision": "STOP",
+      "audit": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence/runner/45652e96c5c74fd88d9a8a23ac81907c",
+      "report": {
+        "schema_version": "m0.2",
+        "task_id": "M2-TASK-01",
+        "revision": "308a9a644c2503e6655bccfb2acbedca58b0a41a:2a8f5a0f96091eb733d7052d368b8791a9141ca4e48e93c7389a47dc573ddeaa",
+        "environment": {
+          "platform": "Linux",
+          "python": "3.11.15",
+          "tool_versions": {
+            "runner": "m2"
+          },
+          "lockfile_sha256": null
+        },
+        "results": [
+          {
+            "property_id": "P-001",
+            "method": "UNIT_TEST",
+            "reference": "cases/provider.json::missing_provider",
+            "status": "PASS",
+            "test_count": 1,
+            "evidence": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence/runner/45652e96c5c74fd88d9a8a23ac81907c/check-0-comparison.json: OBSERVATION_MATCH"
+          },
+          {
+            "property_id": "P-001",
+            "method": "UNIT_TEST",
+            "reference": "cases/provider.json::present_provider",
+            "status": "PASS",
+            "test_count": 1,
+            "evidence": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence/runner/45652e96c5c74fd88d9a8a23ac81907c/check-1-comparison.json: OBSERVATION_MATCH"
+          },
+          {
+            "property_id": null,
+            "method": "DIFF_ALLOWLIST",
+            "reference": "allowed_change_paths",
+            "status": "PASS",
+            "evidence": "Controller filesystem/Git comparison"
+          }
+        ],
+        "gate": {
+          "status": "PASS",
+          "route": "NONE",
+          "reason": "Controller-collected evidence"
+        },
+        "approval_payload_sha256": "d2f434b60753fa0539b476d861cb0254ceed94beba1f05028a862cbcd8971ac9",
+        "changed_paths": [
+          "config_loader.py"
+        ]
+      },
+      "executor_result": {
+        "command": [
+          "codex",
+          "--no-daemon",
+          "exec",
+          "--ephemeral",
+          "-C",
+          "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1",
+          "-m",
+          "gpt-6-luna",
+          "-c",
+          "model_reasoning_effort=\"medium\"",
+          "-c",
+          "default_permissions=\"m2_provider\"",
+          "-c",
+          "permissions.m2_provider.filesystem={\":root\"=\"read\",\"/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1\"=\"write\",\"/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1/project_config.py\"=\"read\",\"/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1/protected\"=\"read\",\"/mnt/d/project/coding_agent\"=\"none\",\"/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence\"=\"none\"}",
+          "-c",
+          "permissions.m2_provider.network.enabled=false",
+          "-c",
+          "approval_policy=\"never\"",
+          "--json",
+          "--color",
+          "never",
+          "-"
+        ],
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300.0,
+        "stdout": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence/executor-1/executor.stdout",
+        "stderr": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence/executor-1/executor.stderr",
+        "version": "codex-cli 0.163.0",
+        "call_number": 1
+      }
+    }
+  ],
+  "evidence": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence",
+  "mk_decision": null,
+  "cnc_task": "CANCELLED_BY_MK_NOT_EXECUTED"
+}

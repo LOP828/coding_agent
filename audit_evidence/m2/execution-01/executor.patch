@@ -1,0 +1,12 @@
+diff --git a/config_loader.py b/config_loader.py
+index ca4e6ef..de1dc3b 100644
+--- a/config_loader.py
++++ b/config_loader.py
+@@ -3,4 +3,6 @@ class MissingProviderError(ValueError):
+ 
+ 
+ def validate_config(config):
+-    raise NotImplementedError("Implement provider validation")
++    if "provider" not in config:
++        raise MissingProviderError("Configuration is missing required 'provider'")
++    return config

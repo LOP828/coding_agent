@@ -1,0 +1,137 @@
+{
+  "stage": "COMPLETED_FOR_MK_REDUCED_SCOPE",
+  "task_id": "M2-TASK-01",
+  "code_commit": "8494a6dfd9ff2e3d8efa30c05a77a62ec2ec68bc",
+  "implementation_commit": "ec93843200fda1d2c3efc696779dee5dde1f16d2",
+  "request_approval": {
+    "source": "MK explicitly approved the exact first Executor prompt and parameters in this conversation",
+    "sha256": "6cb1a054af7a6d9391c9ac7fe7e02d5af1928257cdd8f8394f8bdc8f2b82f418",
+    "executed_request_matches_prepared": true
+  },
+  "model": "gpt-6-luna",
+  "reasoning": "medium",
+  "codex_version": "codex-cli 0.163.0",
+  "executor_exit_code": 0,
+  "timed_out": false,
+  "changed_paths": [
+    "config_loader.py"
+  ],
+  "git_metadata_changes": [],
+  "gate": {
+    "status": "PASS",
+    "route": "NONE",
+    "reason": "Controller-collected evidence"
+  },
+  "attempts": 1,
+  "retry_triggered": false,
+  "retry_decision": "STOP_AFTER_PASS",
+  "model_calls": 1,
+  "model_call_limit": 10,
+  "model_call_counting_unit": "AI_BACKED_CODEX_EXEC_INVOCATION",
+  "cli_reported_usage": [
+    {
+      "input_tokens": 73950,
+      "cached_input_tokens": 66176,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 434,
+      "reasoning_output_tokens": 115
+    }
+  ],
+  "cnc_task": "MK 取消，未执行",
+  "cnc_incomplete_item": false,
+  "demo_repository": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/attempt-1",
+  "source_evidence": "/mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence",
+  "runner_run_id": "45652e96c5c74fd88d9a8a23ac81907c",
+  "checks": [
+    {
+      "reference": "cases/provider.json::missing_provider",
+      "status": "PASS",
+      "reason": "OBSERVATION_MATCH",
+      "observed": {
+        "kind": "exception",
+        "type": "MissingProviderError",
+        "message": "Configuration is missing required 'provider'"
+      },
+      "expected": {
+        "kind": "exception",
+        "type": "MissingProviderError"
+      },
+      "exit_code": 0
+    },
+    {
+      "reference": "cases/provider.json::present_provider",
+      "status": "PASS",
+      "reason": "OBSERVATION_MATCH",
+      "observed": {
+        "kind": "return",
+        "value": {
+          "provider": "openai"
+        }
+      },
+      "expected": {
+        "kind": "return",
+        "value": {
+          "provider": "openai"
+        }
+      },
+      "exit_code": 0
+    }
+  ],
+  "pre_execution_default_tests": {
+    "code_commit": "ec93843200fda1d2c3efc696779dee5dde1f16d2",
+    "results": {
+      "linux": {
+        "command": "python -m pytest",
+        "exit_code": 0,
+        "collected": 183,
+        "passed": 183,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "system": "Linux",
+        "python": "3.11.15",
+        "executable": "/tmp/coding-agent-m1-category8-s6qqkjt0/bin/python3.11",
+        "locale_encoding": "UTF-8",
+        "utf8_mode": 0,
+        "PYTHONUTF8": null,
+        "pytest": "9.0.2",
+        "jsonschema": "4.26.0",
+        "skip_reasons": []
+      },
+      "windows": {
+        "command": "python -m pytest",
+        "exit_code": 0,
+        "collected": 183,
+        "passed": 183,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "system": "Windows",
+        "python": "3.13.7",
+        "executable": "D:\\project\\coding_agent\\.venv-windows\\Scripts\\python.exe",
+        "locale_encoding": "cp936",
+        "utf8_mode": 0,
+        "PYTHONUTF8": null,
+        "pytest": "9.0.2",
+        "jsonschema": "4.26.0",
+        "skip_reasons": []
+      }
+    },
+    "note": "Both default suites completed before the real call. This turn only changes CNC status metadata and documentation; syntax checked. Default suites were not rerun."
+  },
+  "execution_command": "/tmp/coding-agent-m1-category8-s6qqkjt0/bin/python3.11 -m coding_agent.m2_run execute --prepared-request /mnt/d/project/coding_agent_m2_runs/provider-c35176459a33/evidence/prepared-request.json --approved-sha256 6cb1a054af7a6d9391c9ac7fe7e02d5af1928257cdd8f8394f8bdc8f2b82f418",
+  "accepted_read_permission_limitation": {
+    "configuration": ":root=\"read\"",
+    "impact": "Default filesystem-wide reads, except explicitly denied controller and evidence paths; violates project-related-directory-only read principle.",
+    "accepted_by": "MK for this run because command network is disabled and task is simple",
+    "follow_up": "Restrict reads to required project/runtime directories and retest before adopting a narrower policy."
+  },
+  "residual_limitations": [
+    "Named sandbox permits undeclared writes within the candidate directory; M1 detects them after execution. Single-file writable-root configuration failed to start.",
+    "Candidate observation worker is not an OS sandbox; single valid forged observation remains category 9 known false pass.",
+    "Legacy pytest category 8 and sample 04 remain known false passes by explicit scope.",
+    "Linux sandbox tested; no claim of Windows native Codex sandbox enforcement.",
+    "This is one synthetic-fixture provider demonstration, not a success-rate or reliability claim."
+  ],
+  "archive_sha256": "2c19709b96e428d2eced85f8caa01c4ddc07a291d248d6a96edac9a66e9442cb"
+}
